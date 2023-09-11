@@ -2,8 +2,8 @@
 
 export default function Homepage() {
     return(
-        <>
+        <div id="homepage-top">
             Homepage
-        </>
+        </div>
     )
 }

@@ -2,8 +2,8 @@
 
 export default function Contact() {
     return(
-        <>
+        <div id="contact-top">
             Contact
-        </>
+        </div>
     )
 }

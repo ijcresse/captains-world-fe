@@ -1,0 +1,9 @@
+#navbar-top {
+    display: flex;
+    width: 60%;
+    justify-content: space-between
+}
+
+#navbar-item {
+    padding: 1em;
+}

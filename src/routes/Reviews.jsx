@@ -2,8 +2,8 @@
 
 export default function Reviews() {
     return(
-        <>
+        <div id="reviews-top">
             Reviews
-        </>
+        </div>
     )
 }

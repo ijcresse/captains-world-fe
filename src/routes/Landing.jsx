@@ -2,8 +2,8 @@
 
 export default function Landing() {
     return(
-        <>
+        <div id="landing-top">
             Landing
-        </>
+        </div>
     )
 }
