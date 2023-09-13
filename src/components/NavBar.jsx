@@ -26,7 +26,7 @@ function NavBar() {
     return (
         <div id="navbar-top">
             { pages ? pages.map(page => {
-                return (<Link to={page.url} key={page.url}>{page.name}</Link>)
+                return (<Link to={page.url} className="navbar-item" key={page.url}>{page.name}</Link>)
             }) :
             <></>}
         </div>

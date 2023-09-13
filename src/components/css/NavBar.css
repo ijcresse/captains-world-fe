@@ -4,6 +4,6 @@
     justify-content: space-between
 }
 
-#navbar-item {
-    padding: 1em;
+.navbar-item {
+    padding: 0.5em;
 }
