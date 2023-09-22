@@ -1,0 +1,28 @@
+.review-card-top {
+    display: flex;
+    flex-direction: column;
+}
+
+.review-card-text {
+    text-align: center;
+}
+
+.review-card-title {
+    
+}
+
+.review-card-subtitle {
+
+}
+
+.review-card-year {
+
+}
+
+.review-card-month {
+
+}
+
+.review-card-image {
+
+}
