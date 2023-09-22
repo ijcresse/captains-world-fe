@@ -1,6 +1,9 @@
 .review-card-top {
     display: flex;
     flex-direction: column;
+    flex-basis: 30%;
+    background-color:brown;
+    align-items: center;
 }
 
 .review-card-text {
@@ -8,21 +11,26 @@
 }
 
 .review-card-title {
-    
 }
 
 .review-card-subtitle {
-
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
 .review-card-year {
-
+    padding: 0.5em
 }
 
 .review-card-month {
-
+    padding: 0.5em
 }
 
 .review-card-image {
-
+    display: flex;
+    width: 200px;
+    height: 300px;
+    background-color: gray;
+    padding:
 }

@@ -3,12 +3,13 @@ import { useContext, useState } from 'react';
 import { RootContext } from './Root';
 
 import ReviewCard from '../components/ReviewCard'
+import './css/Reviews.css'
 
 export default function Reviews() {
     const axiosInstance = useContext(RootContext);
     const [limit, setLimit] = useState(50);
     const [offset, setOffset] = useState(0);
-    const [reviews, setReviews] = useState(null);
+    const [reviews, setReviews] = useState([]);
 
     const dummyReviews = [
         {
@@ -39,7 +40,19 @@ export default function Reviews() {
 
     function getReviews() {
         console.log('getReviews (currently using dummy data)')
-        setReviews(dummyReviews);
+        // setReviews(dummyReviews);
+        if (reviews.length == 0) {
+            setReviews(dummyReviews)
+        } else {
+            let clonedReviews = [...reviews];
+            clonedReviews.push({
+                "c_id": 99 + Math.random() * 11,
+                "c_name": "testNew",
+                "c_date_crafted": "2023-01-01 00:00:00",
+                "c_image_url": "otherimg.png"
+            })
+            setReviews(clonedReviews)
+        }
         // axiosInstance.get(`http://localhost:5000/api/drink/list`)
         // .then(res => {
         //     console.log('success!')
@@ -60,12 +73,16 @@ export default function Reviews() {
     */
 
     return(
-        <div id="reviews-top">
-            Reviews
-            <button onClick={() => getReviews()}>click me</button>
-            {reviews ? reviews.map(review => {
-                return (<ReviewCard reviewInfo={review} key={review['c_id']} />)
-            }) : <></>}
+        <div className="reviews-top">
+            <div className="reviews-header">
+                Reviews
+                <button onClick={() => getReviews()}>click me</button>
+            </div>
+            <div className="reviews-container">
+                {reviews ? reviews.map(review => {
+                    return (<ReviewCard reviewInfo={review} key={review['c_id']} />)
+                }) : <></>}
+            </div>
         </div>
     )
 }
