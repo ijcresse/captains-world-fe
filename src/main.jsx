@@ -14,6 +14,7 @@ import Landing from './routes/Landing'
 import Login from './routes/Login'
 import PostReview from './routes/PostReview'
 import Reviews from './routes/Reviews'
+import Review from './routes/Review'
 import Root from './routes/Root'
 
 const router = createBrowserRouter([
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
             element: <PostReview />
           }
         ]
+      },
+      {
+        path: "review/:reviewId",
+        element : <Review />
       },
       {
         path: "login",

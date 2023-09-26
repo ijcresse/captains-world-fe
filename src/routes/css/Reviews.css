@@ -15,4 +15,9 @@
     flex-wrap: wrap;
     align-items: flex-start;
     gap: 1em;
+    
+}
+
+.reviews-container a {
+    color: inherit;
 }

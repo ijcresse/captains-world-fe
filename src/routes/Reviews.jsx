@@ -1,5 +1,6 @@
 //showcases reviews. features some very basic sorting (by type of sake, basically)
 import { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { RootContext } from './Root';
 
 import ReviewCard from '../components/ReviewCard'
@@ -7,7 +8,7 @@ import './css/Reviews.css'
 
 export default function Reviews() {
     const axiosInstance = useContext(RootContext);
-    const [limit, setLimit] = useState(50);
+    const [limit, setLimit] = useState(12);
     const [offset, setOffset] = useState(0);
     const [reviews, setReviews] = useState([]);
 
@@ -80,7 +81,11 @@ export default function Reviews() {
             </div>
             <div className="reviews-container">
                 {reviews ? reviews.map(review => {
-                    return (<ReviewCard reviewInfo={review} key={review['c_id']} />)
+                    return (
+                        <Link to={'/review/' + review['c_id']} key={review['c_id']}>
+                            <ReviewCard reviewInfo={review} key={review['c_id']} />
+                        </Link>
+                    )
                 }) : <></>}
             </div>
         </div>
