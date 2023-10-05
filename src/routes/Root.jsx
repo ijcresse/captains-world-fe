@@ -2,6 +2,8 @@
 import { createContext } from 'react'
 import { Outlet } from 'react-router-dom'
 import axios from 'axios'
+import Box from '@mui/material/Box'
+
 import NavBar from '../components/NavBar'
 import './css/Root.css'
 
@@ -13,12 +15,12 @@ export default function Root() {
 
     return(
         <RootContext.Provider value={axiosInstance}>
-            <div id="root-top">
+            <Box id="root-top">
                 <NavBar />
-                <div id="outlet-top">
+                <Box id="outlet-top">
                     <Outlet />
-                </div>
-            </div>
+                </Box>
+            </Box>
         </RootContext.Provider>
     )
 }

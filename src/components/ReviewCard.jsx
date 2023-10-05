@@ -1,6 +1,8 @@
 //takes info for a single review and returns a card containing that information (and link to the dedicated review)
 //used on the Reviews page.
 import { useState, useEffect } from 'react'
+import Card from '@mui/material/Card';
+
 import './css/ReviewCard.css'
 
 const ReviewCard = ({reviewInfo}) => {
@@ -14,7 +16,7 @@ const ReviewCard = ({reviewInfo}) => {
     }, [info])
     
     return(
-        <div className="review-card-top">
+        <Card className="review-card-top">
             <div className="review-card-text">
                 <div className="review-card-title"><h3>{info['c_name']}</h3></div>
                 <div className="review-card-subtitle">
@@ -25,7 +27,7 @@ const ReviewCard = ({reviewInfo}) => {
             <div className="review-card-image">
                 {/* <img url */} temporary space
             </div>
-        </div>
+        </Card>
     )
 }
 

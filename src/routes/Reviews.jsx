@@ -2,6 +2,7 @@
 import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { RootContext } from './Root';
+import Container from '@mui/material/Container';
 
 import ReviewCard from '../components/ReviewCard'
 import './css/Reviews.css'
@@ -74,12 +75,12 @@ export default function Reviews() {
     */
 
     return(
-        <div className="reviews-top">
-            <div className="reviews-header">
+        <Container className="reviews-top">
+            <Container className="reviews-header">
                 Reviews
                 <button onClick={() => getReviews()}>click me</button>
-            </div>
-            <div className="reviews-container">
+            </Container>
+            <Container className="reviews-container">
                 {reviews ? reviews.map(review => {
                     return (
                         <Link to={'/review/' + review['c_id']} key={review['c_id']}>
@@ -87,7 +88,7 @@ export default function Reviews() {
                         </Link>
                     )
                 }) : <></>}
-            </div>
-        </div>
+            </Container>
+        </Container>
     )
 }
