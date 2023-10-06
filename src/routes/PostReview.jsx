@@ -13,6 +13,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 import { RootContext } from './Root';
+import './css/PostReview.css';
 
 const sakeTypes = [
     {
@@ -52,6 +53,8 @@ function PostReview() {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
+        //when sake type is chosen, name is undefined. figure out why!
+        //when there's no value, react complains about going from uncontrolled to controlled. stupid!
         console.log(name);
         console.log(value);
         setFormData({
@@ -65,7 +68,7 @@ function PostReview() {
     */
     return(
         <Container id="post-review-top">
-            <FormControl>
+            <FormControl id="post-review-form">
                 <TextField id="post-review-drink-name" label="Name" helperText="Please enter the drink name" variant="filled" onChange={handleInputChange}/>
                 <TextField select id="post-review-sake-type" label="Sake Type" helperText="Please select a sake type" variant="filled" value={formData['sakeType']} onChange={handleInputChange}>
                 {/* <Select id="post-review-sake-type" label="Sake Type" value={formData['sakeType']} onChange={handleInputChange}> */}
@@ -89,7 +92,6 @@ function PostReview() {
                 </LocalizationProvider>
                 <TextField id="post-review-description" label="Description" helperText="Enter a description" variant="filled" multiline onChange={handleInputChange}/>
                 <div className="post-review-image-container">
-                    some text that fills with the image name upon upload. hook state into this eventually
                     <Button component="label" variant="contained">
                         Upload image
                         <Input type="file" />
