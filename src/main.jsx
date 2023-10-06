@@ -38,12 +38,10 @@ const router = createBrowserRouter([
       {
         path: "reviews/",
         element: <Reviews />,
-        children: [
-          {
-            path: "post",
-            element: <PostReview />
-          }
-        ]
+      },
+      {
+        path: "reviews/post",
+        element: <PostReview />
       },
       {
         path: "review/:reviewId",

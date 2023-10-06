@@ -1,0 +1,4 @@
+#post-review-top {
+    display: flex;
+    flex-direction: column;
+}
