@@ -57,8 +57,6 @@ function PostReview() {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        //when sake type is chosen, name is undefined. figure out why!
-        //when there's no value, react complains about going from uncontrolled to controlled. stupid!
         setFormData({
             ...formData,
             [name]: value
@@ -66,7 +64,15 @@ function PostReview() {
     }
 
     const postReview = () => {
-        axiosInstance.post('localho.st:5000/api/drink')
+        console.log("postreview");
+        // axiosInstance.get("http://localho.st:5000/api/health")
+        //     .then((res) => {
+        //         console.log(res);
+        //     })
+        //     .catch((err) => {
+        //         console.error(err);
+        //     });
+        axiosInstance.post('http://localho.st:5000/api/drink', formData)
             .then((res) => {
                 console.log(res);
                 //once we get the response, use that url to hit the img. separate call
@@ -136,7 +142,7 @@ function PostReview() {
                         <Input type="file"/>
                     </Button>
                 </div>
-                <Button component="label" variant="contained">
+                <Button component="label" variant="contained" onClick={() => postReview()}>
                     Preview
                 </Button>
             </Box>
