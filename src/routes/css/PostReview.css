@@ -7,4 +7,6 @@
 
 #post-review-form > * {
     margin: 1em;
+    display: flex;
+    flex-direction: column;
 }
