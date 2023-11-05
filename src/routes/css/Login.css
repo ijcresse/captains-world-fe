@@ -1,0 +1,16 @@
+#login-top {
+    width: 50%;
+    position: absolute;
+    top: 33%;
+    left: 25%;
+}
+
+#login-panel {
+    display: flex;
+    flex-direction: column;
+}
+
+#login-form {
+    display: flex;
+    justify-content: space-between;
+}
