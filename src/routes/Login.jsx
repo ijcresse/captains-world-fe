@@ -12,6 +12,10 @@ import { Card,
 import { RootContext } from './Root';
 import './css/Login.css'
 
+const post_headers = {
+    'Content-Type': 'application/json',
+}
+
 function Login() {
     const axiosInstance = useContext(RootContext)
     const [formData, setFormData] = useState({
@@ -29,7 +33,15 @@ function Login() {
 
     const signIn = () => {
         console.log(formData);
-        axiosInstance.post("http://localho.st:5000/api/login", formData)
+
+        axiosInstance.get("http://localhost:5000/api/health")
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.error(err);
+            })
+        axiosInstance.post("http://localhost:5000/api/user/login", formData, { headers: post_headers })
             .then(res => {
                 console.log(res)
                 //set cookie
@@ -52,8 +64,8 @@ function Login() {
                 </CardContent>
                 <CardActions id="login-form">
                     <FormControl>
-                        <TextField name="username" label="Username" variant="filled" onChange={handleInputChange} />
-                        <TextField name="password" label="Password" variant="filled" onChange={handleInputChange} />
+                        <TextField name="username" label="Username" variant="filled" value={formData['username']} onChange={handleInputChange} />
+                        <TextField name="password" label="Password" variant="filled" value={formData['password']} onChange={handleInputChange} />
                     </FormControl>
                     <Button size="medium" color="primary" onClick={() => signIn()}>Sign In</Button>
                 </CardActions>

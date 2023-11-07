@@ -40,6 +40,10 @@ const sakeTypes = [
     }
 ]
 
+const post_headers = {
+    'Content-Type': 'application/json',
+}
+
 var initForm = {
     name: "",
     sake_type: sakeTypes[0],
@@ -65,14 +69,7 @@ function PostReview() {
 
     const postReview = () => {
         console.log("postreview");
-        // axiosInstance.get("http://localho.st:5000/api/health")
-        //     .then((res) => {
-        //         console.log(res);
-        //     })
-        //     .catch((err) => {
-        //         console.error(err);
-        //     });
-        axiosInstance.post('http://localho.st:5000/api/drink', formData)
+        axiosInstance.post('http://localhost:5000/api/drink/post', formData, { headers: post_headers })
             .then((res) => {
                 console.log(res);
                 //once we get the response, use that url to hit the img. separate call
