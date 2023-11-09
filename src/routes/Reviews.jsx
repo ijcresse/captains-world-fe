@@ -1,14 +1,13 @@
 //showcases reviews. features some very basic sorting (by type of sake, basically)
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { RootContext } from './Root';
+
 import Container from '@mui/material/Container';
 
 import ReviewCard from '../components/ReviewCard'
 import './css/Reviews.css'
 
 export default function Reviews() {
-    const axiosInstance = useContext(RootContext);
     const [limit, setLimit] = useState(12);
     const [offset, setOffset] = useState(0);
     const [reviews, setReviews] = useState([]);
@@ -55,14 +54,16 @@ export default function Reviews() {
             })
             setReviews(clonedReviews)
         }
-        // axiosInstance.get(`http://localhost:5000/api/drink/list`)
-        // .then(res => {
-        //     console.log('success!')
-        //     console.log(res.data)
-        // }).catch(res => {
-        //     console.log('there was a problem')
-        //     console.error(res)
-        // })
+        let req = new Request('http://localhost:5000/api/drink/list', {
+            method: 'get'
+        })
+        fetch(req)
+            .then(res => {
+                console.log('getReviews success', res.data)
+            })
+            .catch(err => {
+                console.error(err)
+            })
     }
 
     /*

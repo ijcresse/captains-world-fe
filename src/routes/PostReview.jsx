@@ -1,5 +1,5 @@
 //posting page for new reviews. there'll be a separate page for posting blog updates
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import Container from '@mui/material/Container';
 import { Button } from '@mui/material';
 import { Box } from "@mui/material";
@@ -14,7 +14,6 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
-import { RootContext } from './Root';
 import './css/PostReview.css';
 
 const sakeTypes = [
@@ -54,7 +53,6 @@ var initForm = {
 }
 
 function PostReview() {
-    const axiosInstance = useContext(RootContext);
     const [dateCrafted, setDateCrafted] = useState("");
     const [dateEnjoyed, setDateEnjoyed] = useState("");
     const [formData, setFormData] = useState(initForm);
@@ -69,18 +67,27 @@ function PostReview() {
 
     const postReview = () => {
         console.log("postreview");
-        axiosInstance.post('http://localhost:5000/api/drink/post', formData, { headers: post_headers })
-            .then((res) => {
+        let req = new Request('http://localhost:5000/api/drink/post', {
+            method : 'post',
+            body : JSON.stringify(formData),
+            headers: post_headers
+        })
+        fetch(req)
+            .then(res => {
                 console.log(res);
-                //once we get the response, use that url to hit the img. separate call
             })
-            .catch((err) => {
-                console.error(err);
+            .catch(err => {
+                console.error(err)
             })
     }
 
-    const postImage = (imgUrl) => {
-        axiosInstance.post('localho.st:5000/api/drink/img')
+    const postImage = (imageUrl) => {
+        console.log('post image', imageUrl)
+        // let req = new Request('http://localhost:5000/api/drink/post', {
+        //     method: 'post',
+        //     body : JSON.stringify(),
+        //     headers: 'image/' + image_type
+        // })
     }
 
     /*

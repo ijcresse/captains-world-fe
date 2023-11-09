@@ -1,5 +1,5 @@
 //login route. No link provided, this is need to know only
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Card, 
     CardContent, 
     TextField, 
@@ -9,15 +9,14 @@ import { Card,
     CardActions, 
     FormControl 
 } from '@mui/material';
-import { RootContext } from './Root';
 import './css/Login.css'
+
 
 const post_headers = {
     'Content-Type': 'application/json',
 }
 
 function Login() {
-    const axiosInstance = useContext(RootContext)
     const [formData, setFormData] = useState({
         username: "",
         password: "",
@@ -32,27 +31,21 @@ function Login() {
     }
 
     const signIn = () => {
-        console.log(formData);
-
-        axiosInstance.get("http://localhost:5000/api/health")
+        let req = new Request("http://localhost:5000/api/user/login", {
+            method: 'post',
+            mode: 'cors',
+            credentials: 'include',
+            body: JSON.stringify(formData),
+            headers: post_headers
+        });
+        fetch(req)
             .then(res => {
-                console.log(res);
+                res.headers.forEach((val, key) => {
+                    console.log(key, val);
+                })
             })
             .catch(err => {
-                console.error(err);
-            })
-        axiosInstance.post("http://localhost:5000/api/user/login", formData, { headers: post_headers })
-            .then(res => {
-                console.log(res)
-                //set cookie
-                //redirect to admin page (let's use post as default for now)
-            })
-            .catch(err => {
-                console.error(err)
-                //create error toast
-            })
-            .finally(() => {
-                setFormData({username: "", password: ""})
+                console.warn(err);
             })
     }
 
