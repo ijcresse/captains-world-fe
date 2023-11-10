@@ -3,8 +3,11 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    height: fit-content;
 }
 
 #outlet-top {
     padding: 0.5em;
+    width: 75%;
+    height: fit-content;
 }

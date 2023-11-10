@@ -1,30 +1,70 @@
 //showcases reviews. features some very basic sorting (by type of sake, basically)
-import { useContext, useState } from 'react';
-import { RootContext } from './Root';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+
+import Container from '@mui/material/Container';
+
+import ReviewCard from '../components/ReviewCard'
+import './css/Reviews.css'
 
 export default function Reviews() {
-    const axiosInstance = useContext(RootContext);
-    const [limit, setLimit] = useState(50);
+    const [limit, setLimit] = useState(12);
     const [offset, setOffset] = useState(0);
-    const [reviews, setReviews] = useState(null);
+    const [reviews, setReviews] = useState([]);
+
+    const dummyReviews = [
+        {
+            "c_id": 11,
+            "c_name": "test1",
+            "c_date_crafted": "2023-01-01 00:00:00",
+            "c_image_url": "11asdf.png"
+        },
+        {
+            "c_id": 21,
+            "c_name": "test2",
+            "c_date_crafted": "2023-04-02 00:00:00",
+            "c_image_url": "21asdf.png"
+        },
+        {
+            "c_id": 31,
+            "c_name": "test3",
+            "c_date_crafted": "2023-07-03 00:00:00",
+            "c_image_url": "31asdf.png"
+        },
+        {
+            "c_id": 41,
+            "c_name": "test4",
+            "c_date_crafted": "2023-11-01 00:00:00",
+            "c_image_url": "41asdf.png"
+        }
+    ]
 
     function getReviews() {
-        console.log('getting reviews!')
-        // axiosInstance.get(`http://localho.st:5000/api/availability`)
-        // .then(res => {
-        //     console.log('success!')
-        // })
-        // .catch(error => {
-        //     console.error(error)
-        // })
-        axiosInstance.get(`http://localhost:5000/api/drink/list`)
-        .then(res => {
-            console.log('success!')
-            console.log(res.data)
-        }).catch(res => {
-            console.log('there was a problem')
-            console.error(res)
+        console.log('getReviews (currently using dummy data)')
+        // setReviews(dummyReviews);
+        if (reviews.length == 0) {
+            setReviews(dummyReviews)
+        } else {
+            let clonedReviews = [...reviews];
+            clonedReviews.push({
+                "c_id": 99 + Math.random() * 11,
+                "c_name": "testNew",
+                "c_date_crafted": "2023-01-01 00:00:00",
+                "c_image_url": "otherimg.png"
+            })
+            setReviews(clonedReviews)
+        }
+        let req = new Request('http://localhost:5000/api/drink/list', {
+            method: 'get'
         })
+        fetch(req)
+            .then(res => res.json())
+            .then(json => {
+                console.log(json)
+            })
+            .catch(err => {
+                console.error(err)
+            })
     }
 
     /*
@@ -37,9 +77,20 @@ export default function Reviews() {
     */
 
     return(
-        <div id="reviews-top">
-            Reviews
-            <button onClick={() => getReviews()}>click me</button>
-        </div>
+        <Container className="reviews-top">
+            <Container className="reviews-header">
+                Reviews
+                <button onClick={() => getReviews()}>click me</button>
+            </Container>
+            <Container className="reviews-container">
+                {reviews ? reviews.map(review => {
+                    return (
+                        <Link to={'/review/' + review['c_id']} key={review['c_id']}>
+                            <ReviewCard reviewInfo={review} key={review['c_id']} />
+                        </Link>
+                    )
+                }) : <></>}
+            </Container>
+        </Container>
     )
 }

@@ -1,0 +1,12 @@
+#post-review-top {
+    display: flex;
+    flex-direction: column;
+    background-color: lightblue;
+    justify-content: space-evenly;
+}
+
+#post-review-form > * {
+    margin: 1em;
+    display: flex;
+    flex-direction: column;
+}
