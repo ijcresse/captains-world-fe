@@ -9,6 +9,7 @@ import { TextField } from '@mui/material';
 import { MenuItem } from '@mui/material';
 import { Input } from '@mui/material';
 import { Select } from '@mui/material';
+import { useDropzone } from 'react-dropzone';
 
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -50,13 +51,38 @@ var initForm = {
     'drink_type': "sake",
     'date_enjoyed': "",
     'desc': "",
-    'imageUrl': ""
 }
 
 function PostReview() {
     const [dateCrafted, setDateCrafted] = useState("");
     const [dateEnjoyed, setDateEnjoyed] = useState("");
+    const [imageUrl, setImageUrl] = useState("");
     const [formData, setFormData] = useState(initForm);
+
+    const onDrop = useCallback(acceptedFiles, fileRejections => {
+        console.log(acceptedFiles[0]);
+        console.log(fileRejections); //want to know about failures. notify with snackbar eventually
+        setImageUrl(acceptedFiles[0].path); //ensure this is the url!
+        const acceptedFile = acceptedFiles[0] //only accepts one file at a time anyway
+        const reader = new FileReader()
+        reader.onabort = () => console.warn('File reading was aborted')
+        reader.onerror = () => console.error('File reading failed!')
+        reader.onload = () => {
+            const binaryStr = reader.result
+            console.log(binaryStr)
+        }
+        reader.readAsArrayBuffer(acceptedFile)
+    }, [])
+
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+            onDrop, 
+            maxFiles:1, 
+            accept: {
+                'image/png': ['.png'],
+                'image/gif': ['.gif'],
+                'image/jpeg': ['.jpeg'],
+                'image/webp': ['.webp']
+            }});
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -80,6 +106,7 @@ function PostReview() {
             .then(res => res.json())
             .then(json => {
                 console.log(json)
+                postImage()
             })
             .catch(err => {
                 console.error(err)
@@ -90,7 +117,7 @@ function PostReview() {
         return date.toISOString().slice(0, 19).replace('T', ' ');
     }
 
-    const postImage = (imageUrl) => {
+    const postImage = () => {
         console.log('post image', imageUrl)
         // let req = new Request('http://localhost:5000/api/drink/post', {
         //     method: 'post',
@@ -98,6 +125,7 @@ function PostReview() {
         //     headers: 'image/' + image_type
         // })
     }
+
 
     /*
     ok:
@@ -154,11 +182,13 @@ function PostReview() {
                     minRows={3}
                     onChange={handleInputChange}
                 />
-                <div className="post-review-image-container">
-                    <Button component="label" variant="contained">
-                        Upload image
-                        <Input type="file"/>
-                    </Button>
+                <div className="post-review-image-container" {...getRootProps()}>
+                    <input {...getInputProps} />
+                    {
+                        isDragActive ?
+                            <p>Upload image</p> :
+                            <p>Drag and drop or click to select files</p>
+                    }
                 </div>
                 <Button component="label" variant="contained" onClick={() => postReview()}>
                     Preview
