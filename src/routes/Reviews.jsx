@@ -58,8 +58,9 @@ export default function Reviews() {
             method: 'get'
         })
         fetch(req)
-            .then(res => {
-                console.log('getReviews success', res.data)
+            .then(res => res.json())
+            .then(json => {
+                console.log(json)
             })
             .catch(err => {
                 console.error(err)
