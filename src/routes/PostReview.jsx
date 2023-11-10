@@ -41,15 +41,16 @@ const sakeTypes = [
 
 const post_headers = {
     'Content-Type': 'application/json',
+    'Accept' : 'application/json'
 }
 
 var initForm = {
-    name: "",
-    sake_type: sakeTypes[0],
-    drink_type: "",
-    date_enjoyed: "",
-    desc: "",
-    imageUrl: ""
+    'name': "",
+    'sake_type': sakeTypes[0].value,
+    'drink_type': "sake",
+    'date_enjoyed': "",
+    'desc': "",
+    'imageUrl': ""
 }
 
 function PostReview() {
@@ -66,19 +67,27 @@ function PostReview() {
     }
 
     const postReview = () => {
-        console.log("postreview");
-        let req = new Request('http://localhost:5000/api/drink/post', {
+        formData['date_enjoyed'] = formatDate(dateEnjoyed)
+        formData['date_crafted'] = formatDate(dateCrafted)
+        let req = new Request('http://localhost:5000/api/drink/new', {
             method : 'post',
             body : JSON.stringify(formData),
-            headers: post_headers
+            headers: post_headers,
+            mode: 'cors',
+            credentials: 'include'
         })
         fetch(req)
-            .then(res => {
-                console.log(res);
+            .then(res => res.json())
+            .then(json => {
+                console.log(json)
             })
             .catch(err => {
                 console.error(err)
             })
+    }
+
+    const formatDate = (date) => {
+        return date.toISOString().slice(0, 19).replace('T', ' ');
     }
 
     const postImage = (imageUrl) => {
@@ -99,6 +108,7 @@ function PostReview() {
             <Box id="post-review-form" component="form">
                 <TextField 
                     id="post-review-drink-name" 
+                    name="name"
                     label="Name" 
                     helperText="Please enter the drink name" 
                     variant="filled" 
@@ -108,8 +118,9 @@ function PostReview() {
                     <InputLabel>Sake Type</InputLabel>
                     <Select 
                         id="post-review-sake-type" 
+                        name="sake_type"
                         label="Sake Type" 
-                        defaultValue={sakeTypes[0]} 
+                        defaultValue={sakeTypes[0].value} 
                         value={formData['sakeType']} 
                         onChange={handleInputChange}
                     >
@@ -121,18 +132,21 @@ function PostReview() {
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker id="post-review-date-crafted" 
                         views={['year', 'month']}
+                        name="date_crafted"
                         label="Date Crafted"
                         value={dateCrafted}
                         onChange={setDateCrafted}
                     />
                     <DatePicker id="post-review-date-enjoyed"
                         label="Date Enjoyed"
+                        name="date_enjoyed"
                         value={dateEnjoyed}
                         onChange={setDateEnjoyed}
                     />
                 </LocalizationProvider>
                 <TextField 
                     id="post-review-description" 
+                    name="desc"
                     label="Description" 
                     helperText="Enter a description" 
                     variant="filled" 

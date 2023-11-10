@@ -5,8 +5,6 @@ import Box from '@mui/material/Box'
 import NavBar from '../components/NavBar'
 import './css/Root.css'
 
-const RootContext = createContext({});
-
 export default function Root() {
 
     return(
@@ -18,5 +16,3 @@ export default function Root() {
         </Box>
     )
 }
-
-export { RootContext }

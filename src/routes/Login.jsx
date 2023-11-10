@@ -7,7 +7,9 @@ import { Card,
     Container, 
     Button, 
     CardActions, 
-    FormControl 
+    FormControl,
+    Snackbar,
+    Alert
 } from '@mui/material';
 import './css/Login.css'
 
@@ -21,6 +23,9 @@ function Login() {
         username: "",
         password: "",
     });
+    const [showToast, setShowToast] = useState(false)
+    const [toastMessage, setToastMessage] = useState('');
+    const [toastSeverity, setToastSeverity] = useState('success');
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -49,6 +54,60 @@ function Login() {
             })
     }
 
+    const verifySession = () => {
+        let req = new Request('http://localhost:5000/api/user/session', {
+            method: 'get',
+            mode: 'cors',
+            credentials: 'include'
+        })
+        fetch(req)
+            .then(res => {
+                console.log(res)
+                if (res.status === 200) {
+                    setToastMessage('valid session')
+                    setToastSeverity('success')
+                } else if (res.status === 401) {
+                    setToastMessage('invalid session')
+                    setToastSeverity('warning')
+                }
+            })
+            .catch(err => {
+                console.error(err)
+                setToastMessage('something went wrong with verifying session')
+                setToastSeverity('error')
+            })
+            .finally(() => {
+                setShowToast(true)
+            })
+    }
+
+    const logout = () => {
+        let req = new Request('http://localhost:5000/api/user/logout', {
+            method: 'get',
+            mode: 'cors',
+            credentials: 'include'
+        })
+        fetch(req)
+            .then(res => {
+                console.log(res)
+                setToastMessage('logged out')
+                setToastSeverity('success')
+            })
+            .catch(err => {
+                console.error(err)
+                setToastMessage('something went wrong with logging out')
+                setToastSeverity('error')
+            })
+            .finally(() => {
+                setShowToast(true)
+            })
+
+    }
+
+    const handleClose = () => {
+        setShowToast(false)
+    }
+
     return(
         <Container id="login-top">
             <Card id="login-panel">
@@ -63,6 +122,13 @@ function Login() {
                     <Button size="medium" color="primary" onClick={() => signIn()}>Sign In</Button>
                 </CardActions>
             </Card>
+            <Button size="medium" color="secondary" onClick={() => verifySession()}>Verify Session</Button>
+            <Button size="medium" color="warning" onClick={() => logout()}>Logout</Button>
+            <Snackbar open={showToast} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity={toastSeverity}>
+                    {toastMessage}
+                </Alert>
+            </Snackbar>
         </Container>
     )
 }
