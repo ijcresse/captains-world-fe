@@ -8,31 +8,6 @@ import { useDropzone } from 'react-dropzone';
 import './css/ImgUpload.css';
 
 const ImgUpload = () => {
-    // const onDrop = useCallback(acceptedFiles => {
-    //     console.log(acceptedFiles[0]);
-    //     // console.log(fileRejections); //want to know about failures. notify with snackbar eventually
-    //     setImageUrl(acceptedFiles[0].path); //ensure this is the url!
-    //     const acceptedFile = acceptedFiles[0] //only accepts one file at a time anyway
-    //     const reader = new FileReader()
-    //     reader.onabort = () => console.warn('File reading was aborted')
-    //     reader.onerror = () => console.error('File reading failed!')
-    //     reader.onload = () => {
-    //         const binaryStr = reader.result
-    //         console.log(binaryStr)
-    //     }
-    //     reader.readAsArrayBuffer(acceptedFile)
-    // }, [])
-
-    // const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    //     onDrop, 
-    //     maxFiles:1, 
-    //     accept: {
-    //         'image/png': ['.png'],
-    //         'image/gif': ['.gif'],
-    //         'image/jpeg': ['.jpeg'],
-    //         'image/webp': ['.webp']
-    //     }});
-
     // const postImage = () => {
     //     console.log('post image', imageData)
     //     // let req = new Request('http://localhost:5000/api/drink/post', {
@@ -71,7 +46,24 @@ const ImgUpload = () => {
     ))
 
     const uploadImg = () => {
-        console.log(files)
+        let id = 11;
+        let data = new FormData()
+        data.append('file', files[0])
+        console.log(data.get('files'))
+        let req = new Request(`http://localhost:5000/api/drink/new/${id}/img`, {
+            method: 'post',
+            body: data,
+            mode: 'cors',
+            credentials: 'include'
+        });
+        fetch(req)
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.error(err);
+            })
+
     }
 
     useEffect(() => {
@@ -81,7 +73,7 @@ const ImgUpload = () => {
     return(
         <Container>
             <div {...getRootProps({className: 'dropzone'})}>
-                <input {...getInputProps()} />
+                <input name="file" {...getInputProps()} />
                 <p>drag n drop here</p>
             </div>
             <aside className="thumbs-container">
