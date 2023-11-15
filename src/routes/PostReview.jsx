@@ -1,19 +1,22 @@
 //posting page for new reviews. there'll be a separate page for posting blog updates
 import { useState } from 'react';
-import Container from '@mui/material/Container';
-import { Button } from '@mui/material';
-import { Box } from "@mui/material";
-import { FormControl } from "@mui/material";
-import { InputLabel } from "@mui/material";
-import { TextField } from '@mui/material';
-import { MenuItem } from '@mui/material';
-import { Input } from '@mui/material';
-import { Select } from '@mui/material';
-
+import {
+    Container, 
+    Button, 
+    Box,
+    FormControl, 
+    InputLabel, 
+    TextField,
+    MenuItem, 
+    Select,
+    Snackbar,
+    Alert
+} from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
+import ImgUpload from '../components/ImgUpload'
 import './css/PostReview.css';
 
 const sakeTypes = [
@@ -50,12 +53,12 @@ var initForm = {
     'drink_type': "sake",
     'date_enjoyed': "",
     'desc': "",
-    'imageUrl': ""
 }
 
 function PostReview() {
     const [dateCrafted, setDateCrafted] = useState("");
     const [dateEnjoyed, setDateEnjoyed] = useState("");
+    const [imgData, setImgData] = useState([]);
     const [formData, setFormData] = useState(initForm);
 
     const handleInputChange = (e) => {
@@ -79,24 +82,35 @@ function PostReview() {
         fetch(req)
             .then(res => res.json())
             .then(json => {
-                console.log(json)
+                console.log('posted sake ID', json)
+                postImg(json['id'])
             })
             .catch(err => {
                 console.error(err)
             })
     }
 
-    const formatDate = (date) => {
-        return date.toISOString().slice(0, 19).replace('T', ' ');
+    const postImg = (sakeId) => {
+        let data = new FormData()
+        data.append('file', imgData[0])
+        console.log(data.get('files'))
+        let req = new Request(`http://localhost:5000/api/drink/new/${sakeId}/img`, {
+            method: 'post',
+            body: data,
+            mode: 'cors',
+            credentials: 'include'
+        });
+        fetch(req)
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.error(err);
+            })
     }
 
-    const postImage = (imageUrl) => {
-        console.log('post image', imageUrl)
-        // let req = new Request('http://localhost:5000/api/drink/post', {
-        //     method: 'post',
-        //     body : JSON.stringify(),
-        //     headers: 'image/' + image_type
-        // })
+    const formatDate = (date) => {
+        return date.toISOString().slice(0, 19).replace('T', ' ');
     }
 
     /*
@@ -154,12 +168,7 @@ function PostReview() {
                     minRows={3}
                     onChange={handleInputChange}
                 />
-                <div className="post-review-image-container">
-                    <Button component="label" variant="contained">
-                        Upload image
-                        <Input type="file"/>
-                    </Button>
-                </div>
+                <ImgUpload imgData={imgData} setImgData={setImgData}/>
                 <Button component="label" variant="contained" onClick={() => postReview()}>
                     Preview
                 </Button>
