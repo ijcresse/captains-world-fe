@@ -58,7 +58,7 @@ var initForm = {
 function PostReview() {
     const [dateCrafted, setDateCrafted] = useState("");
     const [dateEnjoyed, setDateEnjoyed] = useState("");
-    const [imgData, setImgData] = useState();
+    const [imgData, setImgData] = useState([]);
     const [formData, setFormData] = useState(initForm);
 
     const handleInputChange = (e) => {
@@ -82,8 +82,8 @@ function PostReview() {
         fetch(req)
             .then(res => res.json())
             .then(json => {
-                console.log(json)
-                postImg('posted sake ID', json['id'])
+                console.log('posted sake ID', json)
+                postImg(json['id'])
             })
             .catch(err => {
                 console.error(err)

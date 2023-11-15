@@ -1,13 +1,12 @@
 import { useEffect } from 'react';
 import { 
-    Container,
-    Button
+    Container
  } from '@mui/material';
 import { useDropzone } from 'react-dropzone';
 
 import './css/ImgUpload.css';
 
-const ImgUpload = ({imgData, setImgData, postImage}) => {
+const ImgUpload = ({imgData, setImgData}) => {
     // const [files, setFiles] = useState([]);
     const {getRootProps, getInputProps} = useDropzone({
         accept: {
