@@ -34,9 +34,9 @@ function Login() {
             [name]: value
         })
     }
-
+    
     const signIn = () => {
-        let req = new Request("http://localhost:5000/api/user/login", {
+        let req = new Request(`${window.location.origin}/api/user/login`, {
             method: 'post',
             mode: 'cors',
             credentials: 'include',
@@ -55,7 +55,7 @@ function Login() {
     }
 
     const verifySession = () => {
-        let req = new Request('http://localhost:5000/api/user/session', {
+        let req = new Request(`${window.location.orign}/api/user/session`, {
             method: 'get',
             mode: 'cors',
             credentials: 'include'
@@ -82,7 +82,7 @@ function Login() {
     }
 
     const logout = () => {
-        let req = new Request('http://localhost:5000/api/user/logout', {
+        let req = new Request(`${window.location.origin}/api/user/logout`, {
             method: 'get',
             mode: 'cors',
             credentials: 'include'

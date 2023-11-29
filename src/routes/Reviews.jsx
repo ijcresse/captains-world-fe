@@ -54,7 +54,7 @@ export default function Reviews() {
             })
             setReviews(clonedReviews)
         }
-        let req = new Request('http://localhost:5000/api/drink/list', {
+        let req = new Request(`${window.location.origin}/api/drink/list`, {
             method: 'get'
         })
         fetch(req)

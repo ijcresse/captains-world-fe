@@ -72,7 +72,7 @@ function PostReview() {
     const postReview = () => {
         formData['date_enjoyed'] = formatDate(dateEnjoyed)
         formData['date_crafted'] = formatDate(dateCrafted)
-        let req = new Request('http://localhost:5000/api/drink/new', {
+        let req = new Request(`${window.location.origin}/api/drink/new`, {
             method : 'post',
             body : JSON.stringify(formData),
             headers: post_headers,
@@ -94,7 +94,7 @@ function PostReview() {
         let data = new FormData()
         data.append('file', imgData[0])
         console.log(data.get('files'))
-        let req = new Request(`http://localhost:5000/api/drink/new/${sakeId}/img`, {
+        let req = new Request(`${window.location.origin}/api/drink/new/${sakeId}/img`, {
             method: 'post',
             body: data,
             mode: 'cors',
