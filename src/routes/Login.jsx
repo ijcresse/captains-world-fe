@@ -56,7 +56,7 @@ function Login() {
 
     const verifySession = () => {
         console.log(window.location.origin);
-        let req = new Request(`${window.location.orign}/api/user/session`, {
+        let req = new Request(`${window.location.origin}/api/user/session`, {
             method: 'get',
             mode: 'cors',
             credentials: 'include'
