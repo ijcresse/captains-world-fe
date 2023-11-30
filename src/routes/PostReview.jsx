@@ -1,5 +1,5 @@
 //posting page for new reviews. there'll be a separate page for posting blog updates
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
     Container, 
     Button, 
@@ -16,6 +16,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
+import { ServerContext } from '../context/ServerContext';
 import ImgUpload from '../components/ImgUpload'
 import './css/PostReview.css';
 
@@ -60,6 +61,7 @@ function PostReview() {
     const [dateEnjoyed, setDateEnjoyed] = useState("");
     const [imgData, setImgData] = useState([]);
     const [formData, setFormData] = useState(initForm);
+    const serverOrigin = useContext(ServerContext);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -72,7 +74,7 @@ function PostReview() {
     const postReview = () => {
         formData['date_enjoyed'] = formatDate(dateEnjoyed)
         formData['date_crafted'] = formatDate(dateCrafted)
-        let req = new Request(`${window.location.origin}/api/drink/new`, {
+        let req = new Request(`${serverOrigin}/api/drink/new`, {
             method : 'post',
             body : JSON.stringify(formData),
             headers: post_headers,
@@ -94,7 +96,7 @@ function PostReview() {
         let data = new FormData()
         data.append('file', imgData[0])
         console.log(data.get('files'))
-        let req = new Request(`${window.location.origin}/api/drink/new/${sakeId}/img`, {
+        let req = new Request(`${serverOrigin}/api/drink/new/${sakeId}/img`, {
             method: 'post',
             body: data,
             mode: 'cors',

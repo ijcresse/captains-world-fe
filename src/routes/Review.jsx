@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Card from '@mui/material/Card';
@@ -19,7 +18,6 @@ const Review = () => {
         fetchData();
     }, [])
 
-    // console.log(useLocation());
 
     const dummyData = () => {
         return {
