@@ -1,9 +1,10 @@
 //showcases reviews. features some very basic sorting (by type of sake, basically)
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import Container from '@mui/material/Container';
 
+import { ServerContext } from '../context/ServerContext';
 import ReviewCard from '../components/ReviewCard'
 import './css/Reviews.css'
 
@@ -11,6 +12,7 @@ export default function Reviews() {
     const [limit, setLimit] = useState(12);
     const [offset, setOffset] = useState(0);
     const [reviews, setReviews] = useState([]);
+    const serverOrigin = useContext(ServerContext);
 
     const dummyReviews = [
         {
@@ -54,7 +56,7 @@ export default function Reviews() {
             })
             setReviews(clonedReviews)
         }
-        let req = new Request(`${window.location.origin}/api/drink/list`, {
+        let req = new Request(`${serverOrigin}/api/drink/list`, {
             method: 'get'
         })
         fetch(req)

@@ -1,5 +1,5 @@
 //login route. No link provided, this is need to know only
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Card, 
     CardContent, 
     TextField, 
@@ -11,8 +11,8 @@ import { Card,
     Snackbar,
     Alert
 } from '@mui/material';
+import { ServerContext } from '../context/ServerContext';
 import './css/Login.css'
-
 
 const post_headers = {
     'Content-Type': 'application/json',
@@ -26,6 +26,7 @@ function Login() {
     const [showToast, setShowToast] = useState(false)
     const [toastMessage, setToastMessage] = useState('');
     const [toastSeverity, setToastSeverity] = useState('success');
+    const serverOrigin = useContext(ServerContext);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -36,7 +37,7 @@ function Login() {
     }
     
     const signIn = () => {
-        let req = new Request(`${window.location.origin}/api/user/login`, {
+        let req = new Request(`${serverOrigin}/api/user/login`, {
             method: 'post',
             mode: 'cors',
             credentials: 'include',
@@ -55,7 +56,7 @@ function Login() {
     }
 
     const verifySession = () => {
-        let req = new Request(`${window.location.orign}/api/user/session`, {
+        let req = new Request(`${serverOrigin}/api/user/session`, {
             method: 'get',
             mode: 'cors',
             credentials: 'include'
@@ -82,7 +83,7 @@ function Login() {
     }
 
     const logout = () => {
-        let req = new Request(`${window.location.origin}/api/user/logout`, {
+        let req = new Request(`${serverOrigin}/api/user/logout`, {
             method: 'get',
             mode: 'cors',
             credentials: 'include'
