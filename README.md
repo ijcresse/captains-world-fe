@@ -10,7 +10,6 @@ npm run dev
 
 # Deploying to Production
 ```
-#update package.json version on build! important to prevent caching issues!
-vite build #automatically ensures NODE_ENV is PROD
+npm run build
 cp -r dist/* /path/to/deploy/dir
 ```

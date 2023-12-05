@@ -7,11 +7,10 @@ import { Card,
     Container, 
     Button, 
     CardActions, 
-    FormControl,
-    Snackbar,
-    Alert
+    FormControl
 } from '@mui/material';
 import { ServerContext } from '../context/ServerContext';
+import { ToastContext } from '../context/ToastContext';
 import './css/Login.css'
 
 const post_headers = {
@@ -23,9 +22,7 @@ function Login() {
         username: "",
         password: "",
     });
-    const [showToast, setShowToast] = useState(false)
-    const [toastMessage, setToastMessage] = useState('');
-    const [toastSeverity, setToastSeverity] = useState('success');
+    const { createToast } = useContext(ToastContext);
     const serverOrigin = useContext(ServerContext);
 
     const handleInputChange = (e) => {
@@ -45,13 +42,14 @@ function Login() {
             headers: post_headers
         });
         fetch(req)
-            .then(res => {
-                res.headers.forEach((val, key) => {
-                    console.log(key, val);
-                })
+            .then(() => {
+                createToast('Signed in!', 'success');
             })
             .catch(err => {
                 console.warn(err);
+            })
+            .finally(() => {
+                setFormData({ username: "", password: ""});
             })
     }
 
@@ -65,20 +63,14 @@ function Login() {
             .then(res => {
                 console.log(res)
                 if (res.status === 200) {
-                    setToastMessage('valid session')
-                    setToastSeverity('success')
+                    createToast('Valid session', 'success');
                 } else if (res.status === 401) {
-                    setToastMessage('invalid session')
-                    setToastSeverity('warning')
+                    createToast('Invalid session', 'warning')
                 }
             })
             .catch(err => {
                 console.error(err)
-                setToastMessage('something went wrong with verifying session')
-                setToastSeverity('error')
-            })
-            .finally(() => {
-                setShowToast(true)
+                createToast('Something went wrong', 'error');
             })
     }
 
@@ -91,22 +83,13 @@ function Login() {
         fetch(req)
             .then(res => {
                 console.log(res)
-                setToastMessage('logged out')
-                setToastSeverity('success')
+                createToast('Logged out', 'success');
             })
             .catch(err => {
                 console.error(err)
-                setToastMessage('something went wrong with logging out')
-                setToastSeverity('error')
-            })
-            .finally(() => {
-                setShowToast(true)
+                createToast('Something went wrong', 'error');
             })
 
-    }
-
-    const handleClose = () => {
-        setShowToast(false)
     }
 
     return(
@@ -117,19 +100,27 @@ function Login() {
                 </CardContent>
                 <CardActions id="login-form">
                     <FormControl>
-                        <TextField name="username" label="Username" variant="filled" value={formData['username']} onChange={handleInputChange} />
-                        <TextField name="password" label="Password" variant="filled" value={formData['password']} onChange={handleInputChange} />
+                        <TextField 
+                            name="username" 
+                            label="Username" 
+                            variant="filled" 
+                            value={formData['username']} 
+                            onChange={handleInputChange} 
+                        />
+                        <TextField 
+                            name="password" 
+                            label="Password" 
+                            type="password" 
+                            variant="filled" 
+                            value={formData['password']} 
+                            onChange={handleInputChange} 
+                        />
                     </FormControl>
                     <Button size="medium" color="primary" onClick={() => signIn()}>Sign In</Button>
                 </CardActions>
             </Card>
             <Button size="medium" color="secondary" onClick={() => verifySession()}>Verify Session</Button>
             <Button size="medium" color="warning" onClick={() => logout()}>Logout</Button>
-            <Snackbar open={showToast} autoHideDuration={6000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity={toastSeverity}>
-                    {toastMessage}
-                </Alert>
-            </Snackbar>
         </Container>
     )
 }

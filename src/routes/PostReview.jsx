@@ -9,14 +9,13 @@ import {
     TextField,
     MenuItem, 
     Select,
-    Snackbar,
-    Alert
 } from '@mui/material';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 import { ServerContext } from '../context/ServerContext';
+import { ToastContext } from '../context/ToastContext';
 import ImgUpload from '../components/ImgUpload'
 import './css/PostReview.css';
 
@@ -62,6 +61,7 @@ function PostReview() {
     const [imgData, setImgData] = useState([]);
     const [formData, setFormData] = useState(initForm);
     const serverOrigin = useContext(ServerContext);
+    const createToast = useContext(ToastContext);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -105,9 +105,11 @@ function PostReview() {
         fetch(req)
             .then(res => {
                 console.log(res);
+                createToast('Successfully created post', 'success');
             })
             .catch(err => {
                 console.error(err);
+                createToast('Posted sake, but failed to upload image', 'warning');
             })
     }
 

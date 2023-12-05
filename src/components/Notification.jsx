@@ -1,27 +1,22 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import {
     Container,
     Snackbar,
     Alert
 } from '@mui/material';
+import { ToastContext } from '../context/ToastContext';
 
 /*
 stub - belongs at top level in Root
 */
 const Notification = () => {
-    const [showToast, setShowToast] = useState(false);
-    const [toastMessage, setToastMessage] = useState('');
-    const [toastSeverity, setToastSeverity] = useState('success');
-
-    const handleClose = () => {
-        setShowToast(false);
-    }
+    const { message, severity, show, closeToast } = useContext(ToastContext);
 
     return (
         <Container>
-            <Snackbar open={showToast} autoHideDuration={6000} onClose={handleClose}>
-                <Alert onClose={handleClose} severity={toastSeverity}>
-                    {toastMessage}
+            <Snackbar open={show} autoHideDuration={6000} onClose={closeToast}>
+                <Alert onClose={closeToast} severity={severity}>
+                    {message}
                 </Alert>
             </Snackbar>
         </Container>
