@@ -12,14 +12,14 @@ const ReviewCard = ({reviewInfo}) => {
         //attempt to construct normal date object
         var d = new Date(reviewInfo['c_date_crafted']);
         var season = ""
-        console.log(d.getMonth())
-        if (2 <= d.getMonth() && d.getMonth() < 5) {
+        const month = d.getMonth()
+        if (2 <= month && month < 5) {
             season = "Spring"
-        } else if (5 <= d.getMonth() && d.getMonth < 8) {
+        } else if (5 <= month && month < 8) {
             season = "Summer"
-        } else if (8 <= d.getMonth && d.getMonth() < 11) {
+        } else if (8 <= month && month < 11) {
             season = "Fall"
-        } else if (11 <= d.getMonth() || d.getMonth() < 2) {
+        } else if (11 <= month || month < 2) {
             season = "Winter"
         } else {
             season = "" //something went wrong
