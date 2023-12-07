@@ -8,6 +8,7 @@ import './css/ReviewCard.css'
 const ReviewCard = ({reviewInfo}) => {
     const [date, setDate] = useState({'year': '', 'season': ''});
 
+    //this should be a helper function somewhere else. so Review (1) can access this logic too.
     useEffect(() => {
         //attempt to construct normal date object
         var d = new Date(reviewInfo['c_date_crafted']);
@@ -37,7 +38,7 @@ const ReviewCard = ({reviewInfo}) => {
                 </div>
             </div>
             <div className="review-card-image">
-                {/* <img url */} temporary space
+                <img url={`${import.meta.env.VITE_IMAGES_DIR}/${reviewInfo['c_image_url']}`} />
             </div>
         </Card>
     )
