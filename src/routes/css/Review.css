@@ -25,6 +25,17 @@
     margin-right: 3em;
 }
 
+.review-image img {
+    display: flex;
+    margin: auto;
+    padding-top: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
+    width: 100%;
+    max-width: fit-content;
+    height: fit-content;
+}
+
 .review-text-container {
     display: flex;
     flex-direction: column;

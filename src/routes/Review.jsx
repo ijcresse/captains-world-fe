@@ -38,7 +38,7 @@ export default function Review() {
                     <div className="review-title">{review['c_name']}</div>
                     <Card className='review-info-container'>
                         <div className="review-image">{review['c_image_url'] ?
-                            <img url={`${import.meta.env.VITE_IMAGES_DIR}/${review['c_image_url']}`} /> : <></>
+                            <img src={`${import.meta.env.VITE_IMAGES_DIR}/${review['c_image_url']}`} /> : <></>
                         }</div>
                         <div className="review-text-container">
                             <div className="review-sake-type">{review['c_sake_type']}</div>
