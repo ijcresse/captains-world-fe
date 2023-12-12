@@ -10,9 +10,6 @@
     text-align: center;
 }
 
-.review-card-title {
-}
-
 .review-card-subtitle {
     display: flex;
     flex-direction: row;
@@ -32,5 +29,15 @@
     width: 200px;
     height: 300px;
     background-color: gray;
-    padding:
+}
+
+.review-card-image img {
+    display: flex;
+    margin: auto;
+    max-width: fit-content;
+    height: fit-content;
+    width: 100%;
+    padding-top: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
 }

@@ -38,7 +38,7 @@ const ReviewCard = ({reviewInfo}) => {
                 </div>
             </div>
             <div className="review-card-image">
-                <img url={`${import.meta.env.VITE_IMAGES_DIR}/${reviewInfo['c_image_url']}`} />
+                <img src={`${import.meta.env.VITE_IMAGES_DIR}/${reviewInfo['c_image_url']}`} />
             </div>
         </Card>
     )
