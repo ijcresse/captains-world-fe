@@ -84,7 +84,6 @@ function PostReview() {
         fetch(req)
             .then(res => res.json())
             .then(json => {
-                console.log('posted sake ID', json)
                 postImg(json['id'])
             })
             .catch(err => {
@@ -95,7 +94,6 @@ function PostReview() {
     const postImg = (sakeId) => {
         let data = new FormData()
         data.append('file', imgData[0])
-        console.log(data.get('files'))
         let req = new Request(`${serverOrigin}/api/drink/new/${sakeId}/img`, {
             method: 'post',
             body: data,
@@ -104,7 +102,6 @@ function PostReview() {
         });
         fetch(req)
             .then(res => {
-                console.log(res);
                 createToast('Successfully created post', 'success');
             })
             .catch(err => {

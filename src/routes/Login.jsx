@@ -61,7 +61,6 @@ function Login() {
         })
         fetch(req)
             .then(res => {
-                console.log(res)
                 if (res.status === 200) {
                     createToast('Valid session', 'success');
                 } else if (res.status === 401) {
@@ -82,7 +81,6 @@ function Login() {
         })
         fetch(req)
             .then(res => {
-                console.log(res)
                 createToast('Logged out', 'success');
             })
             .catch(err => {

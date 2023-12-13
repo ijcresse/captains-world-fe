@@ -3,14 +3,16 @@ Personal website for the lovely Captain, to post sake (日本酒) reviews and bl
 Supports login and authorized endpoints for posting sake.
 
 # Local Setup
-Add an env variable named VITE_IMAGES_DIR pointing to your directory of uploaded images, via executing terminal or .env file.
+Add a .env file setting the VITE_IMAGES_DIR variable.
+
+# Running locally
 ```
 npm i
 npm run dev
+#be sure to run captains-world-be simultaneously
 ```
 
 # Deploying to Production
-Export a VITE_IMAGES_DIR to terminal
 ```
 npm run build
 cp -r dist/* /path/to/deploy/dir

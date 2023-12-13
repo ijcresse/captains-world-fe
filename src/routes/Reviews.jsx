@@ -36,7 +36,6 @@ export default function Reviews() {
         fetch(req)
             .then(res => res.json())
             .then(json => {
-                console.log(json)
                 setReviews(json);
             })
             .catch(err => {
@@ -54,7 +53,6 @@ export default function Reviews() {
         fetch(req)
             .then(res => res.json())
             .then(res => {
-                console.log(res);
                 if (res % PAGE_LIMIT === 0) {
                     setPageCount(Math.floor(res['count'] / PAGE_LIMIT));
                 } else {
@@ -68,10 +66,7 @@ export default function Reviews() {
     }
 
     useEffect(() => {
-        console.log('fetching reviews');
         getReviews();
-
-        console.log('fetching pagecount');
         getPageCount();
     }, [page]); //update when page changes
 
@@ -83,7 +78,6 @@ export default function Reviews() {
         <Container className="reviews-top">
             <div className="reviews-header">
                 Reviews
-                <button onClick={() => getReviews()}>click me</button>
             </div>
             <div className="reviews-container">
                 {reviews ? reviews.map(review => {
