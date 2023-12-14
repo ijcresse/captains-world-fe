@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 import Container from '@mui/material/Container';
 import Pagination from '@mui/material/Pagination';
-import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 
 import { ServerContext } from '../context/ServerContext';
 import { ToastContext } from '../context/ToastContext';
@@ -77,7 +77,9 @@ export default function Reviews() {
     return(
         <Container className="reviews-top">
             <div className="reviews-header">
-                Reviews
+                <Link to={'/review/new'}>
+                    <Button variant="contained">Post</Button>
+                </Link>
             </div>
             <div className="reviews-container">
                 {reviews ? reviews.map(review => {

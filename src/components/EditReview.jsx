@@ -19,6 +19,8 @@ import ImgUpload from '../components/ImgUpload';
 import { ServerContext } from '../context/ServerContext';
 import { ToastContext } from '../context/ToastContext';
 
+import './css/EditReview.css';
+
 const sakeTypes = [
     {
         value: "futsushu_honjozo",
@@ -65,13 +67,13 @@ export default function EditReview({
     }
 
     const submitReview = () => {
-        const submitUri = reviewId ?
-            `${serverOrigin}/api/drink/${reviewId}` :
-            `${serverOrigin}/api/drink/new`;
-        const submitMethod = reviewId ?
-            'post' : 'put'
+        const submitUri = reviewId === 'new' ?
+            `${serverOrigin}/api/drink/new` :
+            `${serverOrigin}/api/drink/${reviewId}`;
+        const submitMethod = reviewId === 'new' ?
+            'put' : 'post'
         submitData = reviewData;
-        submitData['c_date_enjoyed'] = formatDate(dateEnjoyed)
+        submitData['c_date_enjoyed'] = formatDate(dateEnjoyed);
         const req = new Request(submitUri, {
             method: submitMethod,
             body: JSON.stringify(reviewData),
@@ -110,9 +112,12 @@ export default function EditReview({
     }
 
     return (
-        <Container className="edit-review-top">
+        <div className="edit-review-top">
             <div className="edit-review-left-col">
-                <ImgUpload imgData={imgData} setImgData={setImgData} isActive={isActive} />
+                { reviewData['c_image_url'] ? 
+                    <img src={`${import.meta.env.VITE_IMAGES_DIR}/${reviewData['c_image_url']}`} /> : <></>
+                }
+                <ImgUpload imgData={imgData} setImgData={setImgData} />
             </div>
             <div className="edit-review-right-col">
                 <TextField className="edit-review-drink-name"
@@ -156,6 +161,6 @@ export default function EditReview({
                     onChange={handleInputChange}
                 />
             </div>
-        </Container>
+        </div>
     )
 }

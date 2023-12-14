@@ -4,7 +4,6 @@ import { useContext, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
     Container,
-    Button,
     Switch,
     FormGroup,
     FormControlLabel
@@ -18,7 +17,7 @@ import './css/Review.css';
 
 const baseReview = {
     'c_name': '',
-    'c_sake_type': 'futsushu/honjozo',
+    'c_sake_type': 'futsushu_honjozo',
     'c_date_enjoyed': '',
     'c_desc': '',
     'c_image_url': ''
@@ -50,7 +49,12 @@ export default function Review() {
     }
 
     useEffect(() => {
-        getReview();
+        if (id === 'new') {
+            setEditable(true);
+        } else {
+            getReview();
+        }
+        
     }, [])
 
     const handleSwitchChange = (e) => {
@@ -68,7 +72,7 @@ export default function Review() {
                             onChange={handleSwitchChange}
                         />
                     } 
-                        label="Edit mode"
+                        label={ editable ? 'Editing' : 'Viewing'}
                         labelPlacement="start"
                     />
                 </FormGroup>

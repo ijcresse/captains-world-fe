@@ -6,8 +6,7 @@ import { useDropzone } from 'react-dropzone';
 
 import './css/ImgUpload.css';
 
-const ImgUpload = ({imgData, setImgData, isActive}) => {
-    // const [files, setFiles] = useState([]);
+const ImgUpload = ({imgData, setImgData}) => {
     const {getRootProps, getInputProps} = useDropzone({
         accept: {
             'image/png': ['.png'],
@@ -19,8 +18,7 @@ const ImgUpload = ({imgData, setImgData, isActive}) => {
             setImgData(acceptedFiles.map(file => Object.assign(file, {
                 preview: URL.createObjectURL(file)
             })))
-        },
-        disabled: isActive
+        }
     })
 
     const thumbs = imgData.map(file => (
