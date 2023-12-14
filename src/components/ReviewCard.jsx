@@ -32,10 +32,10 @@ const ReviewCard = ({reviewInfo}) => {
         <Card className="review-card-top">
             <div className="review-card-text">
                 <div className="review-card-title"><h3>{reviewInfo['c_name']}</h3></div>
-                <div className="review-card-subtitle">
+                {/* <div className="review-card-subtitle">
                     <div className="review-card-month">{date['season']}</div>
                     <div className="review-card-year">{date['year']}</div>
-                </div>
+                </div> */}
             </div>
             <div className="review-card-image">
                 <img src={`${import.meta.env.VITE_IMAGES_DIR}/${reviewInfo['c_image_url']}`} />

@@ -1,4 +1,4 @@
-//posting page for new reviews. there'll be a separate page for posting blog updates
+//route for posting reviews
 import { useContext, useState } from 'react';
 import {
     Container, 
@@ -26,7 +26,7 @@ const sakeTypes = [
     },
     {
         value: "ginjo_tokubetsu",
-        label: "Ginjo/Tokubetsu"
+        label: "Ginjo/Tokubetsu Junmai"
     },
     {
         value: "junmai",
@@ -51,12 +51,13 @@ var initForm = {
     'name': "",
     'sake_type': sakeTypes[0].value,
     'drink_type': "sake",
+    'date_crafted': "",
     'date_enjoyed': "",
     'desc': "",
 }
 
 function PostReview() {
-    const [dateCrafted, setDateCrafted] = useState("");
+    // const [dateCrafted, setDateCrafted] = useState("");
     const [dateEnjoyed, setDateEnjoyed] = useState("");
     const [imgData, setImgData] = useState([]);
     const [formData, setFormData] = useState(initForm);
@@ -73,7 +74,7 @@ function PostReview() {
 
     const postReview = () => {
         formData['date_enjoyed'] = formatDate(dateEnjoyed)
-        formData['date_crafted'] = formatDate(dateCrafted)
+        formData['date_crafted'] = formatDate(new Date()) //Set this to now - not necessary
         let req = new Request(`${serverOrigin}/api/drink/new`, {
             method : 'post',
             body : JSON.stringify(formData),
@@ -145,13 +146,13 @@ function PostReview() {
                     </Select>
                 </FormControl>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker id="post-review-date-crafted" 
+                    {/* <DatePicker id="post-review-date-crafted" 
                         views={['year', 'month']}
                         name="date_crafted"
                         label="Date Crafted"
                         value={dateCrafted}
                         onChange={setDateCrafted}
-                    />
+                    /> */}
                     <DatePicker id="post-review-date-enjoyed"
                         label="Date Enjoyed"
                         name="date_enjoyed"
