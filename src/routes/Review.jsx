@@ -32,7 +32,6 @@ export default function Review() {
     const { createToast } = useContext(ToastContext);
     const location = useLocation().pathname.split('/');
     const id = location[location.length - 1];
-    console.log('current id', id);
 
     function getReview() {
         let req = new Request(`${serverOrigin}/api/drink/detail/${id}`)

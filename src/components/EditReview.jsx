@@ -117,7 +117,7 @@ export default function EditReview({
                 { reviewData['c_image_url'] ? 
                     <img src={`${import.meta.env.VITE_IMAGES_DIR}/${reviewData['c_image_url']}`} /> : <></>
                 }
-                <ImgUpload imgData={imgData} setImgData={setImgData} />
+                <ImgUpload imgData={imgData} setImgData={setImgData} isActive={isActive}/>
             </div>
             <div className="edit-review-right-col">
                 <TextField className="edit-review-drink-name"
@@ -127,6 +127,7 @@ export default function EditReview({
                     variant="filled"
                     value={reviewData['c_name']}
                     onChange={handleInputChange}
+                    disabled={!isActive}
                 />
                 <FormControl>
                     <InputLabel>Sake Type</InputLabel>
@@ -136,6 +137,7 @@ export default function EditReview({
                         defaultValue={reviewData['c_sake_type'] ? reviewData['c_sake_type'] : 'futsushu_honjozo'}
                         value={reviewData['c_sake_type']}
                         onChange={handleInputChange}
+                        disabled={!isActive}
                     >
                         {sakeTypes.map((type) => (
                             <MenuItem key={type.value} value={type.value}>{type.label}</MenuItem>
@@ -148,6 +150,7 @@ export default function EditReview({
                         name="c_date_enjoyed"
                         value={dayjs(dateEnjoyed)}
                         onChange={setDateEnjoyed}
+                        disabled={!isActive}
                     />
                 </LocalizationProvider>
                 <TextField className="edit-review-desc"
@@ -159,6 +162,7 @@ export default function EditReview({
                     minRows={3}
                     value={reviewData['c_desc']}
                     onChange={handleInputChange}
+                    disabled={!isActive}
                 />
             </div>
         </div>

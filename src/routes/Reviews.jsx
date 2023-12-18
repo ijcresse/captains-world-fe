@@ -78,7 +78,7 @@ export default function Reviews() {
         <Container className="reviews-top">
             <div className="reviews-header">
                 <Link to={'/review/new'}>
-                    <Button variant="contained">Post</Button>
+                    <Button variant="contained">CREATE</Button>
                 </Link>
             </div>
             <div className="reviews-container">
