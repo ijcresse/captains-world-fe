@@ -1,15 +1,17 @@
 .edit-review-top {
     display: flex;
     justify-content: space-between;
-    min-height: 20%;
+    min-height: 50%;
     height: fit-content;
     max-height: 80%;
+    flex-wrap: wrap
 }
 
 .edit-review-image-container {
     margin: auto;
     width: 50%;
     position: relative;
+    flex: 0 0 50%;
 }
 
 .edit-review-image {
@@ -42,4 +44,10 @@
     display: flex;
     flex-direction: column;
     width: 50%;
+    flex: 0 0 50%;
+}
+
+.edit-review-submit-button {
+    flex: 0 0 100%;
+    margin: auto;
 }

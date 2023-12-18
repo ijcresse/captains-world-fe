@@ -2,7 +2,7 @@
 //Child component of Review route
 import { useContext } from 'react';
 import {
-    Container,
+    Button,
     FormControl,
     InputLabel,
     TextField,
@@ -69,10 +69,10 @@ export default function EditReview({
     const submitReview = () => {
         const submitUri = reviewId === 'new' ?
             `${serverOrigin}/api/drink/new` :
-            `${serverOrigin}/api/drink/${reviewId}`;
+            `${serverOrigin}/api/drink/detail/${reviewId}/edit`;
         const submitMethod = reviewId === 'new' ?
-            'put' : 'post'
-        submitData = reviewData;
+            'post' : 'put'
+        let submitData = reviewData;
         submitData['c_date_enjoyed'] = formatDate(dateEnjoyed);
         const req = new Request(submitUri, {
             method: submitMethod,
@@ -186,6 +186,18 @@ export default function EditReview({
                         margin: '1em'
                     }}
                 />
+            </div>
+            <div className="edit-review-submit-button">
+                <Button 
+                    variant="contained" 
+                    onClick={submitReview}
+                    sx={{
+                        display: 'flex',
+                        margin: 'auto'
+                    }}
+                >
+                    Submit review
+                </Button>
             </div>
         </div>
     )
