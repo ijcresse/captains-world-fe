@@ -113,25 +113,42 @@ export default function EditReview({
 
     return (
         <div className="edit-review-top">
-            <div className="edit-review-left-col">
+            <div className="edit-review-image-container">
                 { reviewData['c_image_url'] ? 
-                    <img src={`${import.meta.env.VITE_IMAGES_DIR}/${reviewData['c_image_url']}`} /> : <></>
+                    <img 
+                        className="edit-review-image" 
+                        src={`${import.meta.env.VITE_IMAGES_DIR}/${reviewData['c_image_url']}`} 
+                    /> : 
+                    <div className="edit-review-image" />
                 }
-                <ImgUpload imgData={imgData} setImgData={setImgData} isActive={isActive}/>
+                <div className="edit-review-uploader">
+                    <ImgUpload 
+                        imgData={imgData} 
+                        setImgData={setImgData} 
+                        isActive={isActive}
+                    />
+                </div>
+                
             </div>
-            <div className="edit-review-right-col">
-                <TextField className="edit-review-drink-name"
+            <div className="edit-review-metadata">
+                <TextField
                     name="c_name"
-                    label="Name"
-                    helperText="Drink name"
+                    label="Drink Name"
                     variant="filled"
                     value={reviewData['c_name']}
                     onChange={handleInputChange}
                     disabled={!isActive}
+                    sx={{
+                        margin: '1em'
+                    }}
                 />
-                <FormControl>
+                <FormControl 
+                    sx={{
+                        margin: '1em'
+                    }}
+                >
                     <InputLabel>Sake Type</InputLabel>
-                    <Select className="edit-review-sake-type"
+                    <Select 
                         name="c_sake_type"
                         label="Sake Type"
                         defaultValue={reviewData['c_sake_type'] ? reviewData['c_sake_type'] : 'futsushu_honjozo'}
@@ -145,24 +162,29 @@ export default function EditReview({
                     </Select>
                 </FormControl>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker className="edit-review-date-enjoyed"
+                    <DatePicker 
                         label="Date Enjoyed"
                         name="c_date_enjoyed"
                         value={dayjs(dateEnjoyed)}
                         onChange={setDateEnjoyed}
                         disabled={!isActive}
+                        sx={{
+                            margin: '1em'
+                        }}
                     />
                 </LocalizationProvider>
-                <TextField className="edit-review-desc"
+                <TextField
                     name="c_desc"
                     label="Description"
-                    helperText="Enter a description"
                     variant="filled"
                     multiline
                     minRows={3}
                     value={reviewData['c_desc']}
                     onChange={handleInputChange}
                     disabled={!isActive}
+                    sx={{
+                        margin: '1em'
+                    }}
                 />
             </div>
         </div>

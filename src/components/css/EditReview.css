@@ -1,4 +1,45 @@
 .edit-review-top {
     display: flex;
     justify-content: space-between;
+    min-height: 20%;
+    height: fit-content;
+    max-height: 80%;
+}
+
+.edit-review-image-container {
+    margin: auto;
+    width: 50%;
+    position: relative;
+}
+
+.edit-review-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 0;
+}
+
+.edit-review-uploader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    background: rgb(200 200 200 / .2)
+}
+
+.edit-review-metadata {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
 }

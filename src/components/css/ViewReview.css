@@ -1,4 +1,32 @@
 .view-review-top {
     display: flex;
     justify-content: space-between;
+    min-height: 50%;
+    height: fit-content;
+    max-height: 80%;
+}
+
+.view-review-image-container {
+    margin: auto;
+    width: 50%;
+    position: relative;
+}
+
+.view-review-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 0;
+}
+
+.view-review-metadata {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
 }

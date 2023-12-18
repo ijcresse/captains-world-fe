@@ -4,26 +4,8 @@
     background-color: brown;
 }
 
-.review-title {
-    display: flex;
-    justify-content: center;
-    margin-top: 3em;
-    margin-bottom: 3em;
-}
-
-.review-info-container {
-    display: flex;
-    flex-direction: row;
-}
-
-.review-image {
-    min-width: 400px;
-    max-width: 25%;
-    min-height: 600px;
-    max-height: 50%;
-    background-color: brown;
-    margin: 1em;
-    margin-right: 3em;
+.review-outlet {
+    height: 80vh;
 }
 
 .review-image img {
@@ -35,23 +17,4 @@
     width: 100%;
     max-width: fit-content;
     height: fit-content;
-}
-
-.review-text-container {
-    display: flex;
-    flex-direction: column;
-}
-
-.review-text-container div {
-    margin-top: 1em;
-    margin-bottom: 1em;
-}
-
-.review-tag-list {
-    display: flex;
-    flex-direction: row;
-}
-
-.review-tag {
-    margin-right: 1em;
 }
