@@ -18,6 +18,7 @@ import './css/Review.css';
 const baseReview = {
     'c_name': '',
     'c_sake_type': 'futsushu_honjozo',
+    'c_drink_type': 'sake',
     'c_date_enjoyed': '',
     'c_desc': '',
     'c_image_url': ''
@@ -86,7 +87,7 @@ export default function Review() {
                         imgData={imgData}
                         setImgData={setImgData}
                         isActive={editable}
-                        reviewId={id === 'new' ? null : id}
+                        reviewId={id}
                     /> :
                     <ViewReview 
                         reviewData={review}

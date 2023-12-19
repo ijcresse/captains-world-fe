@@ -10,12 +10,13 @@ export default function ViewReview({ reviewData, imgData }) {
     
     //prioritizes newly uploaded image, then current image, and blank if empty.
     const ImageDisplay = () => {
+        console.log(imgData);
         if (imgData.length === 1) { //imgData should never be larger than 1
             return (<img className="view-review-image" src={imgData[0].preview} />)
-        } else if (reviewData['c_image_url'] !== '') {
+        } else if (reviewData['c_image_url']) {
             return (<img className="view-review-image" src={`${import.meta.env.VITE_IMAGES_DIR}/${reviewData['c_image_url']}`} />)
         } else {
-            return (<div className="view-review-image">img placeholder</div>)
+            return (<div className="view-review-image">No Image</div>)
         }
     }
 

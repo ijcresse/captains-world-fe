@@ -42,8 +42,12 @@ function Login() {
             headers: post_headers
         });
         fetch(req)
-            .then(() => {
-                createToast('Signed in!', 'success');
+            .then(res => {
+                if (res.status === 401) {
+                    createToast('Unrecognized credentials. Please try again', 'warning')
+                } else {
+                    createToast('Signed in!', 'success');
+                }
             })
             .catch(err => {
                 console.warn(err);

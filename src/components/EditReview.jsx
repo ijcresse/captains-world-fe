@@ -59,19 +59,18 @@ export default function EditReview({
         setReviewData({
             ...reviewData,
             [name]: value
-        })
+        });
     }
 
     const formatDate = (date) => {
         return date.toISOString().slice(0, 19).replace('T', ' ');
     }
-
     const submitReview = () => {
         const submitUri = reviewId === 'new' ?
             `${serverOrigin}/api/drink/new` :
             `${serverOrigin}/api/drink/detail/${reviewId}/edit`;
         const submitMethod = reviewId === 'new' ?
-            'post' : 'put'
+            'post' : 'put';
         let submitData = reviewData;
         submitData['c_date_enjoyed'] = formatDate(dateEnjoyed);
         const req = new Request(submitUri, {
@@ -82,13 +81,17 @@ export default function EditReview({
             credentials: 'include'
         });
         fetch(req)
-            .then(res => res.json())
-            .then(json => {
-                postImg(json['c_id'])
+            .then(res => {
+                if (res.status === 401) {
+                    createToast('Unauthorized. Please log in.', 'warning');
+                } else {
+                    res = res.json()
+                    postImg(json['c_id']);
+                }
             })
             .catch(err => {
-                createToast('Something went wrong with posting review.', 'error');
-                console.error(err);
+                createToast('Something went wrong.', 'error');
+                console.error(err)
             })
     }
 
@@ -100,7 +103,7 @@ export default function EditReview({
             body: data,
             mode: 'cors',
             credentials: 'include'
-        })
+        });
         fetch(req)
             .then(res => {
                 createToast('Successfully created post', 'success');
@@ -108,7 +111,7 @@ export default function EditReview({
             .catch(err => {
                 console.error(err);
                 createToast('Posted sake, but failed to upload image', 'warning');
-            })
+            });
     }
 
     return (
