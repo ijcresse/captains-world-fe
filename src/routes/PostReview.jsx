@@ -53,7 +53,7 @@ var initForm = {
     'drink_type': "sake",
     'date_crafted': "",
     'date_enjoyed': "",
-    'desc': "",
+    'description': "",
 }
 
 function PostReview() {

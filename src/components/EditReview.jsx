@@ -85,8 +85,13 @@ export default function EditReview({
                 if (res.status === 401) {
                     createToast('Unauthorized. Please log in.', 'warning');
                 } else {
-                    res = res.json()
-                    postImg(json['c_id']);
+                    if (submitMethod === 'put') {
+                        postImg(reviewId);
+                    } else {
+                        let json = res.json();
+                        postImg(json['c_id']);
+                    }
+                    
                 }
             })
             .catch(err => {
@@ -106,7 +111,11 @@ export default function EditReview({
         });
         fetch(req)
             .then(res => {
-                createToast('Successfully created post', 'success');
+                if (res.status === 401) {
+                    createToast('Unauthorized. Please log in.', 'warning');
+                } else {
+                    createToast('Successfully created post', 'success');
+                }
             })
             .catch(err => {
                 console.error(err);
@@ -177,12 +186,12 @@ export default function EditReview({
                     />
                 </LocalizationProvider>
                 <TextField
-                    name="c_desc"
+                    name="c_description"
                     label="Description"
                     variant="filled"
                     multiline
                     minRows={3}
-                    value={reviewData['c_desc']}
+                    value={reviewData['c_description']}
                     onChange={handleInputChange}
                     disabled={!isActive}
                     sx={{
