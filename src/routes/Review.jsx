@@ -80,12 +80,9 @@ export default function Review() {
             <div className="review-outlet">
                 {(id === undefined || editable) ?
                     <EditReview 
-                        reviewData={review}
-                        setReviewData={setReview}
-                        dateEnjoyed={dateEnjoyed}
-                        setDateEnjoyed={setDateEnjoyed}
-                        imgData={imgData}
-                        setImgData={setImgData}
+                        reviewData={review} setReviewData={setReview}
+                        dateEnjoyed={dateEnjoyed} setDateEnjoyed={setDateEnjoyed}
+                        imgData={imgData} setImgData={setImgData}
                         isActive={editable}
                         reviewId={id}
                     /> :

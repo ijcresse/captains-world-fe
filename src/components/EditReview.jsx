@@ -1,6 +1,7 @@
 //Allows editing of a given review. If the review has no ID associated with it, the review is posted as a new review.
 //Child component of Review route
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
     Button,
     FormControl,
@@ -53,6 +54,7 @@ export default function EditReview({
 }) {
     const serverOrigin = useContext(ServerContext);
     const { createToast } = useContext(ToastContext);
+    const navigate = useNavigate();
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -85,11 +87,21 @@ export default function EditReview({
                 if (res.status === 401) {
                     createToast('Unauthorized. Please log in.', 'warning');
                 } else {
-                    if (submitMethod === 'put') {
-                        postImg(reviewId);
-                    } else {
-                        let json = res.json();
-                        postImg(json['c_id']);
+                    //TODO clean up this flow. smells bad
+                    if (imgData.length === 0) { //no image to post
+                        let text = submitMethod === 'put' ? 'updated' : 'posted';
+                        createToast(`Successfully ${text} review`, 'success');
+                        //can't navigate here, we still think it's 'new'
+                        //so the if/then logic for navigating to the new page has to happen after we confirm the new ID
+                        //but also, this flow still stinks
+                        //yea
+                    } else if (submitMethod === 'put') { //existing review with image
+                        postImg(reviewId, submitMethod);
+                    } else { //new review with image
+                        res.json()
+                            .then(json => {
+                                postImg(json['c_id'], submitMethod);
+                            })
                     }
                     
                 }
@@ -100,10 +112,10 @@ export default function EditReview({
             })
     }
 
-    const postImg = (id) => {
+    const postImg = (id, submitMethod) => {
         let data = new FormData();
         data.append('file', imgData[0]);
-        let req = new Request(`${serverOrigin}/api/drink/new/${id}/img`, {
+        let req = new Request(`${serverOrigin}/api/drink/img/${id}`, {
             method: 'post',
             body: data,
             mode: 'cors',
@@ -114,12 +126,16 @@ export default function EditReview({
                 if (res.status === 401) {
                     createToast('Unauthorized. Please log in.', 'warning');
                 } else {
-                    createToast('Successfully created post', 'success');
+                    let text = submitMethod === 'post' ? 'posted' : 'updated';
+                    createToast(`Successfully ${text} review`, 'success');
+                    console.log(`attempting to navigate to /review/${id} route`)
+                    navigate(`/review/${id}`);
                 }
             })
             .catch(err => {
                 console.error(err);
-                createToast('Posted sake, but failed to upload image', 'warning');
+                let text = submitMethod === 'post' ? 'Posted' : 'Updated';
+                createToast(`${text} review, but failed to upload image`, 'warning');
             });
     }
 

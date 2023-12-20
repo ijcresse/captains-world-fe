@@ -10,7 +10,6 @@ export default function ViewReview({ reviewData, imgData }) {
     
     //prioritizes newly uploaded image, then current image, and blank if empty.
     const ImageDisplay = () => {
-        console.log(imgData);
         if (imgData.length === 1) { //imgData should never be larger than 1
             return (<img className="view-review-image" src={imgData[0].preview} />)
         } else if (reviewData['c_image_url']) {
