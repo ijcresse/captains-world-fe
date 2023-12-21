@@ -68,17 +68,22 @@ export default function EditReview({
         return date.toISOString().slice(0, 19).replace('T', ' ');
     }
     const submitReview = () => {
-        const submitUri = reviewId === 'new' ?
-            `${serverOrigin}/api/drink/new` :
-            `${serverOrigin}/api/drink/detail/${reviewId}/edit`;
-        const submitMethod = reviewId === 'new' ?
-            'post' : 'put';
         let submitData = reviewData;
         submitData['c_date_enjoyed'] = formatDate(dateEnjoyed);
-        const req = new Request(submitUri, {
-            method: submitMethod,
-            body: JSON.stringify(reviewData),
-            headers: { 'Content-Type':'application/json', 'Accept':'application/json'},
+        let headers = { 'Content-Type':'application/json', 'Accept':'application/json'};
+        if (reviewId === 'new') {
+            handlePost(submitData, headers);
+        } else {
+            handlePut(submitData, headers);
+        }
+    }
+
+    
+    const handlePut = (submitData, headers) => {
+        const req = new Request(`${serverOrigin}/api/drink/detail/${reviewId}/edit`, {
+            method: 'put',
+            body: JSON.stringify(submitData),
+            headers: headers,
             mode: 'cors',
             credentials: 'include'
         });
@@ -87,28 +92,44 @@ export default function EditReview({
                 if (res.status === 401) {
                     createToast('Unauthorized. Please log in.', 'warning');
                 } else {
-                    //TODO clean up this flow. smells bad
-                    if (imgData.length === 0) { //no image to post
-                        let text = submitMethod === 'put' ? 'updated' : 'posted';
-                        createToast(`Successfully ${text} review`, 'success');
-                        //can't navigate here, we still think it's 'new'
-                        //so the if/then logic for navigating to the new page has to happen after we confirm the new ID
-                        //but also, this flow still stinks
-                        //yea
-                    } else if (submitMethod === 'put') { //existing review with image
-                        postImg(reviewId, submitMethod);
-                    } else { //new review with image
-                        res.json()
-                            .then(json => {
-                                postImg(json['c_id'], submitMethod);
-                            })
+                    if (imgData.length === 0) {
+                        createToast('Successfully updated review', 'success');
+                    } else {
+                        postImg(reviewId, 'put')
                     }
-                    
                 }
             })
             .catch(err => {
                 createToast('Something went wrong.', 'error');
-                console.error(err)
+                console.error(err);
+            })
+    }
+
+    const handlePost = (submitData, headers) => {
+        const req = new Request(`${serverOrigin}/api/drink/new`, {
+            method: 'post',
+            body: JSON.stringify(submitData),
+            headers: headers,
+            mode: 'cors',
+            credentials: 'include'
+        });
+        fetch(req)
+            .then(res => {
+                if (res.status === 401) {
+                    createToast('Unauthorized. Please log in.', 'warning');
+                } else {
+                    if (imgData.length === 0) {
+                        createToast('Successfully posted review.', 'success');
+                    } else {
+                        res.json().then(json => {
+                            postImg(json['c_id'], 'post');
+                        })
+                    }
+                }
+            })
+            .catch(err => {
+                createToast('Something went wrong.',' error');
+                console.error(err);
             })
     }
 
