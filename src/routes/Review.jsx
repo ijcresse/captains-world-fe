@@ -29,8 +29,10 @@ export default function Review() {
     const [dateEnjoyed, setDateEnjoyed] = useState("");
     const [imgData, setImgData] = useState([]);
     const [editable, setEditable] = useState(false);
-    const serverOrigin = useContext(ServerContext);
+
+    const { serverOrigin, isAuthorized } = useContext(ServerContext);
     const { createToast } = useContext(ToastContext);
+
     const location = useLocation().pathname.split('/');
     const id = location[location.length - 1];
 
@@ -54,7 +56,6 @@ export default function Review() {
         } else {
             getReview();
         }
-        
     }, [])
 
     const handleSwitchChange = (e) => {
@@ -63,7 +64,7 @@ export default function Review() {
 
     return(
         <Container className="review-top">
-            <div className="review-switch">
+            {isAuthorized() ? <div className="review-switch">
                 <FormGroup>
                     <FormControlLabel 
                     control={
@@ -76,9 +77,9 @@ export default function Review() {
                         labelPlacement="start"
                     />
                 </FormGroup>
-            </div>
+            </div> : <></>}
             <div className="review-outlet">
-                {(id === undefined || editable) ?
+                {(id === 'new' || editable) ?
                     <EditReview 
                         reviewData={review} setReviewData={setReview}
                         dateEnjoyed={dateEnjoyed} setDateEnjoyed={setDateEnjoyed}
@@ -96,3 +97,5 @@ export default function Review() {
         </Container>
     )
 }
+
+//ok auth thing is working BUT it's rerendering like 5 times per page

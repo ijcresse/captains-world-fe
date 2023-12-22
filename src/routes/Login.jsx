@@ -23,7 +23,7 @@ function Login() {
         password: "",
     });
     const { createToast } = useContext(ToastContext);
-    const serverOrigin = useContext(ServerContext);
+    const { serverOrigin, isAuthorized } = useContext(ServerContext);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;

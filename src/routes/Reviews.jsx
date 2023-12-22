@@ -24,8 +24,9 @@ export default function Reviews() {
     const [page, setPage] = useState(0);
     const [pageCount, setPageCount] = useState(1);
     const [reviews, setReviews] = useState([]);
-    const serverOrigin = useContext(ServerContext);
+    const { serverOrigin, isAuthorized } = useContext(ServerContext);
     const { createToast } = useContext(ToastContext);
+
 
     function getReviews() {
         let req = new Request(`${serverOrigin}/api/drink/list?limit=${PAGE_LIMIT}&offset=${PAGE_LIMIT * page}`, {
@@ -76,11 +77,11 @@ export default function Reviews() {
 
     return(
         <Container className="reviews-top">
-            <div className="reviews-header">
+            {isAuthorized() && <div className="reviews-header">
                 <Link to={'/review/new'}>
                     <Button variant="contained">CREATE</Button>
                 </Link>
-            </div>
+            </div>}
             <div className="reviews-container">
                 {reviews ? reviews.map(review => {
                     return (
@@ -91,7 +92,7 @@ export default function Reviews() {
                 }) : <></>}
             </div>
             <Stack spacing={2}>
-                <Pagination count={pageCount} page={page} onChange={handleChange} />
+                <Pagination count={pageCount} page={page + 1} onChange={handleChange} />
             </Stack>
         </Container>
     )

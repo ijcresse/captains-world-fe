@@ -52,7 +52,7 @@ export default function EditReview({
     isActive, 
     reviewId 
 }) {
-    const serverOrigin = useContext(ServerContext);
+    const { serverOrigin } = useContext(ServerContext);
     const { createToast } = useContext(ToastContext);
     const navigate = useNavigate();
 
