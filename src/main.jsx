@@ -12,7 +12,6 @@ import Contact from './routes/Contact'
 import Homepage from './routes/Homepage'
 import Landing from './routes/Landing'
 import Login from './routes/Login'
-import PostReview from './routes/PostReview'
 import Reviews from './routes/Reviews'
 import Review from './routes/Review'
 import Root from './routes/Root'
@@ -38,10 +37,6 @@ const router = createBrowserRouter([
       {
         path: "reviews/",
         element: <Reviews />,
-      },
-      {
-        path: "reviews/post",
-        element: <PostReview />
       },
       {
         path: "review/:reviewId",

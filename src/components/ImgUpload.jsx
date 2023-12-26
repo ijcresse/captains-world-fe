@@ -6,8 +6,7 @@ import { useDropzone } from 'react-dropzone';
 
 import './css/ImgUpload.css';
 
-const ImgUpload = ({imgData, setImgData}) => {
-    // const [files, setFiles] = useState([]);
+const ImgUpload = ({imgData, setImgData, isActive}) => {
     const {getRootProps, getInputProps} = useDropzone({
         accept: {
             'image/png': ['.png'],
@@ -43,7 +42,7 @@ const ImgUpload = ({imgData, setImgData}) => {
     return(
         <Container className="post-review-image-container">
             <div {...getRootProps({className: 'dropzone'})}>
-                <input name="file" {...getInputProps()} />
+                <input name="file" {...getInputProps()} disabled={!isActive} />
                 <p>drag n drop here</p>
             </div>
             <aside className="thumbs-container">

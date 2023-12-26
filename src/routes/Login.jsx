@@ -23,7 +23,7 @@ function Login() {
         password: "",
     });
     const { createToast } = useContext(ToastContext);
-    const serverOrigin = useContext(ServerContext);
+    const { serverOrigin, isAuthorized } = useContext(ServerContext);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -42,8 +42,12 @@ function Login() {
             headers: post_headers
         });
         fetch(req)
-            .then(() => {
-                createToast('Signed in!', 'success');
+            .then(res => {
+                if (res.status === 401) {
+                    createToast('Unrecognized credentials. Please try again', 'warning')
+                } else {
+                    createToast('Signed in!', 'success');
+                }
             })
             .catch(err => {
                 console.warn(err);
@@ -61,7 +65,6 @@ function Login() {
         })
         fetch(req)
             .then(res => {
-                console.log(res)
                 if (res.status === 200) {
                     createToast('Valid session', 'success');
                 } else if (res.status === 401) {
@@ -82,7 +85,6 @@ function Login() {
         })
         fetch(req)
             .then(res => {
-                console.log(res)
                 createToast('Logged out', 'success');
             })
             .catch(err => {
