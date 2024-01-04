@@ -33,7 +33,8 @@ function Login() {
         })
     }
     
-    const signIn = () => {
+    const signIn = (e) => {
+        e.preventDefault();
         let req = new Request(`${serverOrigin}/api/user/login`, {
             method: 'post',
             mode: 'cors',
@@ -101,24 +102,26 @@ function Login() {
                     <Typography variant="h4">Please log in:</Typography>
                 </CardContent>
                 <CardActions id="login-form">
-                    <FormControl>
-                        <TextField 
-                            name="username" 
-                            label="Username" 
-                            variant="filled" 
-                            value={formData['username']} 
-                            onChange={handleInputChange} 
-                        />
-                        <TextField 
-                            name="password" 
-                            label="Password" 
-                            type="password" 
-                            variant="filled" 
-                            value={formData['password']} 
-                            onChange={handleInputChange} 
-                        />
-                    </FormControl>
-                    <Button size="medium" color="primary" onClick={() => signIn()}>Sign In</Button>
+                    <form onSubmit={e => signIn(e)} >
+                        <FormControl>
+                            <TextField 
+                                name="username" 
+                                label="Username" 
+                                variant="filled" 
+                                value={formData['username']} 
+                                onChange={handleInputChange} 
+                            />
+                            <TextField 
+                                name="password" 
+                                label="Password" 
+                                type="password" 
+                                variant="filled" 
+                                value={formData['password']} 
+                                onChange={handleInputChange} 
+                            />
+                        </FormControl>
+                        <Button type="submit" size="medium" color="primary" onClick={e => signIn(e)}>Sign In</Button>
+                    </form>
                 </CardActions>
             </Card>
             <Button size="medium" color="secondary" onClick={() => verifySession()}>Verify Session</Button>
