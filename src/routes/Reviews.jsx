@@ -18,18 +18,19 @@ import './css/Reviews.css'
  * This component coordinates the two.
  */
 
-const PAGE_LIMIT = 12;
+//for testing.
+const PAGE_LIMIT = 1;
 
 export default function Reviews() {
-    const [page, setPage] = useState(0);
-    const [pageCount, setPageCount] = useState(1);
+    const [page, setPage] = useState(1);
+    const [pageCount, setPageCount] = useState(0);
     const [reviews, setReviews] = useState([]);
     const { serverOrigin, isAuthorized } = useContext(ServerContext);
     const { createToast } = useContext(ToastContext);
 
 
     function getReviews() {
-        let req = new Request(`${serverOrigin}/api/drink/list?limit=${PAGE_LIMIT}&offset=${PAGE_LIMIT * page}`, {
+        let req = new Request(`${serverOrigin}/api/drink/list?limit=${PAGE_LIMIT}&offset=${PAGE_LIMIT * (page - 1)}`, {
             method: 'get',
             mode: 'cors',
             credentials: 'include'
@@ -54,7 +55,7 @@ export default function Reviews() {
         fetch(req)
             .then(res => res.json())
             .then(res => {
-                if (res % PAGE_LIMIT === 0) {
+                if (res['count'] % PAGE_LIMIT === 0) {
                     setPageCount(Math.floor(res['count'] / PAGE_LIMIT));
                 } else {
                     setPageCount(Math.floor(res['count'] / PAGE_LIMIT + 1));
@@ -92,7 +93,7 @@ export default function Reviews() {
                 }) : <></>}
             </div>
             <Stack spacing={2}>
-                <Pagination count={pageCount} page={page + 1} onChange={handleChange} />
+                <Pagination count={pageCount} page={page} onChange={handleChange} />
             </Stack>
         </Container>
     )
