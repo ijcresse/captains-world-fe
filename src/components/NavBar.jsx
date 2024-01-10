@@ -1,5 +1,8 @@
 import { Link } from 'react-router-dom'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
 import './css/NavBar.css'
+
 
 //navigation bar at top of page.
 function NavBar() {
@@ -29,6 +32,7 @@ function NavBar() {
                 return (<Link to={page.url} className="navbar-item" key={page.url}>{page.name}</Link>)
             }) :
             <></>}
+            <Link to={'/login'} className="navbar-item"><AccountCircleIcon /></Link>
         </div>
     )
 }

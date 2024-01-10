@@ -3,10 +3,10 @@
 import { useContext, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
-    Container,
     Switch,
     FormGroup,
-    FormControlLabel
+    FormControlLabel,
+    Paper
  } from '@mui/material';
 
 import { ServerContext } from '../context/ServerContext';
@@ -63,7 +63,7 @@ export default function Review() {
     }
 
     return(
-        <Container className="review-top">
+        <Paper className="review-top">
             {isAuthorized() ? <div className="review-switch">
                 <FormGroup>
                     <FormControlLabel 
@@ -94,7 +94,7 @@ export default function Review() {
                     />
                 }
             </div>
-        </Container>
+        </Paper>
     )
 }
 

@@ -1,5 +1,6 @@
 //contact information for captain's world admin
 import './css/Contact.css'
+import { Typography } from '@mui/material';
 
 export default function Contact() {
     return(
