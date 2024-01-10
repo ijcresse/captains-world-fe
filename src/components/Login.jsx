@@ -1,12 +1,11 @@
 //login route. No link provided, this is need to know only
 import { useContext, useState } from 'react';
-import { Card, 
-    CardContent, 
-    TextField, 
-    Typography, 
-    Container, 
-    Button, 
-    CardActions, 
+import { 
+    Dialog,
+    DialogContent, 
+    DialogTitle,
+    TextField,  
+    Button,  
     FormControl
 } from '@mui/material';
 import { ServerContext } from '../context/ServerContext';
@@ -17,7 +16,7 @@ const post_headers = {
     'Content-Type': 'application/json',
 }
 
-function Login() {
+function Login({open, handleClose}) {
     const [formData, setFormData] = useState({
         username: "",
         password: "",
@@ -96,37 +95,33 @@ function Login() {
     }
 
     return(
-        <Container id="login-top">
-            <Card id="login-panel">
-                <CardContent id="login-header">
-                    <Typography variant="h4">Please log in:</Typography>
-                </CardContent>
-                <CardActions id="login-form">
-                    <form onSubmit={e => signIn(e)} >
-                        <FormControl>
-                            <TextField 
-                                name="username" 
-                                label="Username" 
-                                variant="filled" 
-                                value={formData['username']} 
-                                onChange={handleInputChange} 
-                            />
-                            <TextField 
-                                name="password" 
-                                label="Password" 
-                                type="password" 
-                                variant="filled" 
-                                value={formData['password']} 
-                                onChange={handleInputChange} 
-                            />
-                        </FormControl>
-                        <Button type="submit" size="medium" color="primary" onClick={e => signIn(e)}>Sign In</Button>
-                    </form>
-                </CardActions>
-            </Card>
-            <Button size="medium" color="secondary" onClick={() => verifySession()}>Verify Session</Button>
-            <Button size="medium" color="warning" onClick={() => logout()}>Logout</Button>
-        </Container>
+        <Dialog id="login-top" open={open} onClose={handleClose}>
+            <DialogTitle>Please log in</DialogTitle>
+            <DialogContent>
+                <form onSubmit={e => signIn(e)} >
+                    <FormControl>
+                        <TextField 
+                            name="username" 
+                            label="Username" 
+                            variant="filled" 
+                            value={formData['username']} 
+                            onChange={handleInputChange} 
+                        />
+                        <TextField 
+                            name="password" 
+                            label="Password" 
+                            type="password" 
+                            variant="filled" 
+                            value={formData['password']} 
+                            onChange={handleInputChange} 
+                        />
+                    </FormControl>
+                    <Button type="submit" size="medium" color="primary" onClick={e => signIn(e)}>Sign In</Button>
+                </form>
+                <Button size="medium" color="secondary" onClick={() => verifySession()}>Verify Session</Button>
+                <Button size="medium" color="warning" onClick={() => logout()}>Logout</Button>
+            </DialogContent>
+        </Dialog>
     )
 }
 

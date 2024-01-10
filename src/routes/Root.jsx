@@ -1,4 +1,5 @@
 //root page that contains and coordinates other elements from other pages
+import { useState } from 'react';
 import { Outlet } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -6,6 +7,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { ServerProvider } from '../context/ServerContext';
 import { ToastProvider } from '../context/ToastContext';
 import NavBar from '../components/NavBar';
+import Login from '../components/Login';
 import Notification from '../components/Notification';
 import './css/Root.css'
 
@@ -39,18 +41,28 @@ const theme = createTheme({
 });
 
 export default function Root() {
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = () => {
+      setOpen(true);
+    }
+    
+    const handleClose = () => {
+      setOpen(false);
+    }
 
     return(
         <ThemeProvider theme={theme} >
             <ServerProvider>
                 <ToastProvider>
                     <Box id="root-top">
-                        <NavBar />
+                        <NavBar handleOpen={handleOpen}/>
                         <Box id="outlet-top">
                             <Outlet />
                         </Box>
                     </Box>
                     <Notification />
+                    <Login open={open} handleClose={handleClose}/>
                 </ToastProvider>
             </ServerProvider>
         </ThemeProvider>

@@ -3,9 +3,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import './css/NavBar.css'
 
-
 //navigation bar at top of page.
-function NavBar() {
+function NavBar({handleOpen}) {
 
     const pages = [
         {
@@ -32,7 +31,7 @@ function NavBar() {
                 return (<Link to={page.url} className="navbar-item" key={page.url}>{page.name}</Link>)
             }) :
             <></>}
-            <Link to={'/login'} className="navbar-item"><AccountCircleIcon /></Link>
+            <AccountCircleIcon className="navbar-item" onClick={handleOpen}/>
         </div>
     )
 }
