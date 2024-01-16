@@ -31,7 +31,7 @@ function NavBar({handleOpen}) {
                 return (<Link to={page.url} className="navbar-item" key={page.url}>{page.name}</Link>)
             }) :
             <></>}
-            <AccountCircleIcon className="navbar-item" onClick={handleOpen}/>
+            <AccountCircleIcon sx={{cursor: 'pointer'}} className="navbar-item" onClick={handleOpen}/>
         </div>
     )
 }

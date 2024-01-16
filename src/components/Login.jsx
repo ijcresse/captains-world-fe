@@ -22,7 +22,7 @@ function Login({open, handleClose}) {
         password: "",
     });
     const { createToast } = useContext(ToastContext);
-    const { serverOrigin, isAuthorized } = useContext(ServerContext);
+    const { serverOrigin, setAuthThreshold } = useContext(ServerContext);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -86,6 +86,7 @@ function Login({open, handleClose}) {
         fetch(req)
             .then(res => {
                 createToast('Logged out', 'success');
+                setAuthThreshold(0);
             })
             .catch(err => {
                 console.error(err)
