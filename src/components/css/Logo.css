@@ -1,0 +1,20 @@
+.logo-top {
+    position: absolute;
+    left: 50vh;
+}
+
+.logo-img {
+    position: absolute;
+    width: 80vh;
+    top: 8vh;
+}
+
+.logo-name {
+    position: absolute;
+    width: 80vh;
+    left: 5vh;
+}
+
+.logo-transparent {
+    opacity: 0.3;
+}
