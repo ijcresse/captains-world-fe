@@ -1,6 +1,5 @@
 //contact information for captain's world admin
 import './css/Contact.css'
-import { Typography } from '@mui/material';
 
 import Logo from '../components/Logo';
 
@@ -14,7 +13,6 @@ export default function Contact() {
             <div className="contact-img">
                 <img src={'../../contact.png'} />
             </div>
-            <Logo transparency={true} />
         </div>
     )
 }

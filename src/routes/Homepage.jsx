@@ -5,7 +5,7 @@ import Logo from '../components/Logo';
 export default function Homepage() {
     return(
         <Container className="homepage-top">
-            <Logo transparency={false} />
+            HP
         </Container>
     )
 }

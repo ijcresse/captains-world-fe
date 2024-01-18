@@ -9,7 +9,8 @@ import { ToastProvider } from '../context/ToastContext';
 import NavBar from '../components/NavBar';
 import Login from '../components/Login';
 import Notification from '../components/Notification';
-import './css/Root.css'
+import Logo from '../components/Logo';
+import './css/Root.css';
 
 /*
 cypress sapwood: rgb(219, 180, 141)
@@ -60,6 +61,7 @@ export default function Root() {
                         <Box id="outlet-top">
                             <Outlet />
                         </Box>
+                        <Logo transparency={true} />
                     </Box>
                     <Notification />
                     <Login open={open} handleClose={handleClose}/>

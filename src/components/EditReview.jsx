@@ -77,7 +77,6 @@ export default function EditReview({
             handlePut(submitData, headers);
         }
     }
-
     
     const handlePut = (submitData, headers) => {
         const req = new Request(`${serverOrigin}/api/drink/detail/${reviewId}/edit`, {

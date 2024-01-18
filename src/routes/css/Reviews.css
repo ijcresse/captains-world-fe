@@ -15,7 +15,7 @@
     flex-wrap: wrap;
     align-items: flex-start;
     gap: 1em;
-    
+    justify-content: center;
 }
 
 .reviews-container a {

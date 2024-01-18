@@ -8,7 +8,7 @@ function NavBar({handleOpen}) {
 
     const pages = [
         {
-            'name': 'Homepage',
+            'name': 'Home',
             'url': '/home'
         },
         {
@@ -31,7 +31,7 @@ function NavBar({handleOpen}) {
                 return (<Link to={page.url} className="navbar-item" key={page.url}>{page.name}</Link>)
             }) :
             <></>}
-            <AccountCircleIcon sx={{cursor: 'pointer'}} className="navbar-item" onClick={handleOpen}/>
+            <AccountCircleIcon sx={{cursor: 'pointer', color: "#1a1b85"}} className="navbar-item" onClick={handleOpen}/>
         </div>
     )
 }
