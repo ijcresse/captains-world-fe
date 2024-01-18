@@ -10,6 +10,7 @@
     top: 8vh;
     right: 5vh;
     width: 80vh;
+    min-height: 10%;
 }
 
 .logo-name {

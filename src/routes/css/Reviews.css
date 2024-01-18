@@ -4,10 +4,11 @@
     flex-direction: column;
 }
 
-.reviews-header {
+.reviews-footer {
     display: flex;
     align-items: flex-start;
     justify-content: space-around;
+    margin: 1em;
 }
 
 .reviews-container {

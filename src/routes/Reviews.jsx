@@ -78,16 +78,6 @@ export default function Reviews() {
 
     return(
         <Container className="reviews-top">
-            <div className="reviews-header">
-                <Stack spacing={2}>
-                    <Pagination count={pageCount} page={page} onChange={handleChange} />
-                </Stack>
-                {isAuthorized() &&
-                    <Link to={'/review/new'}>
-                        <Button variant="contained">CREATE</Button>
-                    </Link>
-                }
-            </div>
             <div className="reviews-container">
                 {reviews ? reviews.map(review => {
                     return (
@@ -97,7 +87,16 @@ export default function Reviews() {
                     )
                 }) : <></>}
             </div>
-            
+            <div className="reviews-footer">
+                <Stack spacing={2}>
+                    <Pagination count={pageCount} page={page} onChange={handleChange} />
+                </Stack>
+                {isAuthorized() &&
+                    <Link to={'/review/new'}>
+                        <Button variant="contained">CREATE</Button>
+                    </Link>
+                }
+            </div>
         </Container>
     )
 }
