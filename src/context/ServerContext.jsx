@@ -21,9 +21,11 @@ function ServerProvider({children}) {
         })
         fetch(req)
             .then(res => {
-                setAuthorized(res.status === 200);
-                console.log('setting auth time', (Date.now() + hourInMillis), hourInMillis)
-                setAuthThreshold(Date.now() + hourInMillis)
+                if (res.status === 200) {
+                    setAuthorized(res.status === 200);
+                    setAuthThreshold(Date.now() + hourInMillis)
+                }
+                
             })
             .catch(err => {
                 console.error(err);

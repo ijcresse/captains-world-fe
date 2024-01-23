@@ -64,7 +64,7 @@ export default function Root() {
                         <Logo transparency={true} />
                     </Box>
                     <Notification />
-                    <Login open={open} handleClose={handleClose}/>
+                    <Login open={open} setOpen={setOpen} handleClose={handleClose}/>
                 </ToastProvider>
             </ServerProvider>
         </ThemeProvider>

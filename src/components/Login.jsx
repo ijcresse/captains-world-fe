@@ -16,7 +16,7 @@ const post_headers = {
     'Content-Type': 'application/json',
 }
 
-function Login({open, handleClose}) {
+function Login({open, setOpen, handleClose}) {
     const [formData, setFormData] = useState({
         username: "",
         password: "",
@@ -47,6 +47,7 @@ function Login({open, handleClose}) {
                     createToast('Unrecognized credentials. Please try again', 'warning')
                 } else {
                     createToast('Signed in!', 'success');
+                    setOpen(false);
                 }
             })
             .catch(err => {
@@ -54,7 +55,7 @@ function Login({open, handleClose}) {
             })
             .finally(() => {
                 setFormData({ username: "", password: ""});
-            })
+            });
     }
 
     const verifySession = () => {
@@ -74,7 +75,7 @@ function Login({open, handleClose}) {
             .catch(err => {
                 console.error(err)
                 createToast('Something went wrong', 'error');
-            })
+            });
     }
 
     const logout = () => {
@@ -92,7 +93,9 @@ function Login({open, handleClose}) {
                 console.error(err)
                 createToast('Something went wrong', 'error');
             })
-
+            .finally(() => {
+                window.location.reload();
+            });
     }
 
     return(
