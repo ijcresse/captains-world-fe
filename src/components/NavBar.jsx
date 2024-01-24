@@ -9,7 +9,8 @@ function NavBar({handleOpen}) {
 
     const activePageClass = (pageName) => {
         let className = "navbar-item";
-        if (location.pathname.includes(pageName)) {
+        //todo: hacky
+        if (location.pathname.includes(pageName) || (pageName === 'reviews' && location.pathname.includes('review'))) {
             className += " navbar-active";
         }
         return className;
