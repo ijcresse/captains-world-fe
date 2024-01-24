@@ -19,7 +19,7 @@ import './css/Reviews.css'
  */
 
 //for testing.
-const PAGE_LIMIT = 1;
+const PAGE_LIMIT = 12;
 
 export default function Reviews() {
     const [page, setPage] = useState(1);
@@ -78,11 +78,6 @@ export default function Reviews() {
 
     return(
         <Container className="reviews-top">
-            {isAuthorized() && <div className="reviews-header">
-                <Link to={'/review/new'}>
-                    <Button variant="contained">CREATE</Button>
-                </Link>
-            </div>}
             <div className="reviews-container">
                 {reviews ? reviews.map(review => {
                     return (
@@ -92,9 +87,16 @@ export default function Reviews() {
                     )
                 }) : <></>}
             </div>
-            <Stack spacing={2}>
-                <Pagination count={pageCount} page={page} onChange={handleChange} />
-            </Stack>
+            <div className="reviews-footer">
+                <Stack spacing={2}>
+                    <Pagination count={pageCount} page={page} onChange={handleChange} />
+                </Stack>
+                {isAuthorized() &&
+                    <Link to={'/review/new'}>
+                        <Button variant="contained">CREATE</Button>
+                    </Link>
+                }
+            </div>
         </Container>
     )
 }

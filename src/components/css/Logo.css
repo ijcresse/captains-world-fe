@@ -1,0 +1,25 @@
+.logo-top {
+    position: absolute;
+    top: 5vh;
+    right: 0;
+    z-index: 0;
+}
+
+.logo-img {
+    position: absolute;
+    top: 8vh;
+    right: 5vh;
+    width: 80vh;
+    min-height: 10%;
+}
+
+.logo-name {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80vh;
+}
+
+.logo-transparent {
+    opacity: 0.5;
+}

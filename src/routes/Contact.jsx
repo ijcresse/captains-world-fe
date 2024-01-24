@@ -1,6 +1,8 @@
 //contact information for captain's world admin
 import './css/Contact.css'
 
+import Logo from '../components/Logo';
+
 export default function Contact() {
     return(
         <div id="contact-top">

@@ -1,9 +1,22 @@
 #navbar-top {
     display: flex;
-    width: 60%;
-    justify-content: space-between
+    width: 100%;
+    justify-content: space-around;
+    background-color: rgb(246 246 246 / 0.75);
+    z-index: 1;
 }
 
 .navbar-item {
     padding: 0.5em;
+    width: 100%;
+    text-align: center;
+}
+
+.navbar-active {
+    background-color: rgb(26 27 133 / 0.87);
+    color: rgb(246 246 246);
+}
+
+.navbar-active:hover {
+    color: rgb(246 246 246 / 0.5);
 }

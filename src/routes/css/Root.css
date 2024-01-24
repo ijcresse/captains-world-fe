@@ -10,4 +10,5 @@
     padding: 0.5em;
     width: 75%;
     height: fit-content;
+    z-index: 1;
 }
