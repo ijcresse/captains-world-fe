@@ -8,8 +8,9 @@ import Button from '@mui/material/Button';
 
 import { ServerContext } from '../context/ServerContext';
 import { ToastContext } from '../context/ToastContext';
-import ReviewCard from '../components/ReviewCard'
-import './css/Reviews.css'
+import SearchPanel from '../components/SearchPanel';
+import ReviewCard from '../components/ReviewCard';
+import './css/Reviews.css';
 
 /*
  * Reviews page shows multiple abbreviated sake reviews.
@@ -18,7 +19,6 @@ import './css/Reviews.css'
  * This component coordinates the two.
  */
 
-//for testing.
 const PAGE_LIMIT = 12;
 
 export default function Reviews() {
@@ -78,6 +78,9 @@ export default function Reviews() {
 
     return(
         <Container className="reviews-top">
+            <div className="reviews-search-panel">
+                <SearchPanel />
+            </div>
             <div className="reviews-container">
                 {reviews ? reviews.map(review => {
                     return (

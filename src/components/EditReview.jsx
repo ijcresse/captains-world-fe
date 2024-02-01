@@ -19,31 +19,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import ImgUpload from '../components/ImgUpload';
 import { ServerContext } from '../context/ServerContext';
 import { ToastContext } from '../context/ToastContext';
+import { sakeTypes } from '../util/strings';
 
 import './css/EditReview.css';
-
-const sakeTypes = [
-    {
-        value: "futsushu_honjozo",
-        label: "Futsushu/Honjozo"
-    },
-    {
-        value: "ginjo_tokubetsu",
-        label: "Ginjo/Tokubetsu Junmai"
-    },
-    {
-        value: "junmai",
-        label: "Junmai"
-    },
-    {
-        value: "daiginjo",
-        label: "Daiginjo"
-    },
-    {
-        value: "specialty",
-        label: "Specialty"
-    }
-]
 
 export default function EditReview({ 
     reviewData, setReviewData, 
@@ -148,7 +126,6 @@ export default function EditReview({
                 } else {
                     let text = submitMethod === 'post' ? 'posted' : 'updated';
                     createToast(`Successfully ${text} review`, 'success');
-                    console.log(`attempting to navigate to /review/${id} route`)
                     navigate(`/review/${id}`);
                 }
             })

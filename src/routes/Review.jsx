@@ -97,5 +97,3 @@ export default function Review() {
         </Paper>
     )
 }
-
-//ok auth thing is working BUT it's rerendering like 5 times per page
