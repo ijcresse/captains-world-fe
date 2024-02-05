@@ -29,6 +29,7 @@ export default function ViewReview({ reviewData, imgData }) {
                 <Typography className="view-review-type" variant="subtitle1" sx={{margin: '1em'}}>{reviewData['c_sake_type']}</Typography>
                 <Typography className="view-review-enjoyed" variant="subtitle1" sx={{margin: '1em'}}>{reviewData['c_date_enjoyed']}</Typography>
                 <Typography className="view-review-desc" variant="body1" sx={{margin: '1em'}}>{reviewData['c_description']}</Typography>
+                
             </div>
         </div>
     )
