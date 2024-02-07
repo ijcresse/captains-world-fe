@@ -1,13 +1,13 @@
 //Allows viewing a particular review. Coordinates with EditReview for logged in users.
 //Child component of the Review route
 import {
-    Typography
+    Typography,
 } from '@mui/material';
 
 import './css/ViewReview.css';
+import Tags, { importTags } from './Tags';
 
-export default function ViewReview({ reviewData, imgData }) {
-    
+export default function ViewReview({ reviewData, masterTags, imgData }) {
     //prioritizes newly uploaded image, then current image, and blank if empty.
     const ImageDisplay = () => {
         if (imgData.length === 1) { //imgData should never be larger than 1
@@ -29,7 +29,10 @@ export default function ViewReview({ reviewData, imgData }) {
                 <Typography className="view-review-type" variant="subtitle1" sx={{margin: '1em'}}>{reviewData['c_sake_type']}</Typography>
                 <Typography className="view-review-enjoyed" variant="subtitle1" sx={{margin: '1em'}}>{reviewData['c_date_enjoyed']}</Typography>
                 <Typography className="view-review-desc" variant="body1" sx={{margin: '1em'}}>{reviewData['c_description']}</Typography>
-                
+                <div className="view-review-taglist">
+                    <Typography className="view-review-tags" variant="body1" sx={{margin: '1em'}}>Tags:</Typography>
+                    <Tags tags={importTags(masterTags)} readOnly={true} />
+                </div>
             </div>
         </div>
     )

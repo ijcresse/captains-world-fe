@@ -16,31 +16,23 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
-import { WithContext as ReactTags } from 'react-tag-input';
-
 import ImgUpload from '../components/ImgUpload';
 import { ServerContext } from '../context/ServerContext';
 import { ToastContext } from '../context/ToastContext';
 import { sakeTypes } from '../util/strings';
+import Tags, { exportTags, importTags } from './Tags';
 
 import './css/EditReview.css';
 
-const KeyCodes = {
-    comma: 188,
-    enter: 13
-};
-
-const tagDelimiters = [KeyCodes.comma, KeyCodes.enter];
-
 export default function EditReview({ 
     reviewData, setReviewData, 
-    tags,
+    masterTags, getTags,
     dateEnjoyed, setDateEnjoyed, 
     imgData, setImgData,
     isActive, 
     reviewId
 }) {
-    const [reviewTags, setReviewTags] = useState(tags);
+    const [editTags, setEditTags] = useState(importTags(masterTags));
     const { serverOrigin } = useContext(ServerContext);
     const { createToast } = useContext(ToastContext);
     const navigate = useNavigate();
@@ -51,26 +43,6 @@ export default function EditReview({
             ...reviewData,
             [name]: value
         });
-    }
-
-    const handleDelete = (i) => {
-        const remainder = reviewTags.filter((tag, index) => index !== i);
-        setReviewTags(remainder);
-    }
-
-    const handleAddition = (tag) => {
-        setReviewTags(reviewTags => [...reviewTags, tag])
-        console.log(reviewTags);
-    }
-
-    const handleDrag = (tag, currPos, newPos) => {
-        let tagsCopy = reviewTags;
-        let newTags = tagsCopy.slice();
-
-        newTags.splice(currPos, 1);
-        newTags.splice(newPos, 0, tag);
-
-        setReviewTags(newTags);
     }
 
     const formatDate = (date) => {
@@ -170,10 +142,12 @@ export default function EditReview({
     }
 
     const postTags = () => {
-        console.log('postTags', reviewTags);
-        let req = new Request(`${serverOrigin}/api/tags/for/review/${id}`, {
+        console.log('edittag.postTags', editTags);
+        let headers = { 'Content-Type':'application/json', 'Accept':'application/json'};
+        let req = new Request(`${serverOrigin}/api/tags/for/review/${reviewId}`, {
             method: 'post',
-            body: reviewTags,
+            body: JSON.stringify(exportTags(editTags)),
+            headers: headers,
             mode: 'cors',
             credentials: 'include'
         });
@@ -183,6 +157,7 @@ export default function EditReview({
                     createToast('Unauthorized. Please log in.', 'warning');
                 } else {
                     createToast(`Successfully updated tags`, 'success');
+                    getTags(); //refresh tag list from server
                 }
             })
             .catch(err => {
@@ -190,17 +165,7 @@ export default function EditReview({
                 let text = submitMethod === 'post' ? 'Posted' : 'Updated';
                 createToast(`${text} review, but failed to post tags`, 'warning');
             })
-        
     }
-
-    /*
-    i need tags to have IDs. when tags come in from Review, i want them to have
-    id added to them. this doesn't overlap with c_id - that's for the backend.
-
-    how am i going to manage this with being able to tell if a tag is new or old?
-    i had a working system... maybe i should go back to it. so this is easier.
-    i can't think very well today...
-    */
 
     return (
         <div className="edit-review-top">
@@ -277,13 +242,7 @@ export default function EditReview({
                         margin: '1em'
                     }}
                 />
-                <ReactTags tags={reviewTags}
-                    handleDelete={handleDelete}
-                    handleAddition={handleAddition}
-                    handleDrag={handleDrag}
-                    delimiters={tagDelimiters}
-                    labelField={'c_tag_name'}
-                    inline={false} />
+                <Tags tags={editTags} setTags={setEditTags} readOnly={false} />
             </div>
             <div className="edit-review-submit-button">
                 <Button 

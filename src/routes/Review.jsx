@@ -59,7 +59,6 @@ export default function Review() {
         fetch(req)
             .then(res => res.json())
             .then(res => {
-                console.log('tags', tags);
                 setTags(res);
             })
             .catch(err => {
@@ -100,7 +99,7 @@ export default function Review() {
                 {(id === 'new' || editable) ?
                     <EditReview 
                         reviewData={review} setReviewData={setReview}
-                        tags={tags}
+                        masterTags={tags} getTags={getTags}
                         dateEnjoyed={dateEnjoyed} setDateEnjoyed={setDateEnjoyed}
                         imgData={imgData} setImgData={setImgData}
                         isActive={editable}
@@ -108,8 +107,7 @@ export default function Review() {
                     /> :
                     <ViewReview 
                         reviewData={review}
-                        tags={tags}
-                        dateEnjoyed={review['c_date_enjoyed'] ? review['c_date_enjoyed'] : dateEnjoyed}
+                        masterTags={tags}
                         imgData={imgData}
                     />
                 }

@@ -106,6 +106,7 @@ export default function SearchPanel() {
                     <Select
                         name="c_sake_type"
                         label="Sake Type"
+                        value={sakeTypes[0].value}
                     >
                         {sakeTypes.map((type) => {
                             <MenuItem 
