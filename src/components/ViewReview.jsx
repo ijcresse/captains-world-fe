@@ -30,7 +30,6 @@ export default function ViewReview({ reviewData, masterTags, imgData }) {
                 <Typography className="view-review-enjoyed" variant="subtitle1" sx={{margin: '1em'}}>{reviewData['c_date_enjoyed']}</Typography>
                 <Typography className="view-review-desc" variant="body1" sx={{margin: '1em'}}>{reviewData['c_description']}</Typography>
                 <div className="view-review-taglist">
-                    <Typography className="view-review-tags" variant="body1" sx={{margin: '1em'}}>Tags:</Typography>
                     <Tags tags={importTags(masterTags)} readOnly={true} />
                 </div>
             </div>

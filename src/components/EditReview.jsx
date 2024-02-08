@@ -73,6 +73,7 @@ export default function EditReview({
                 if (res.status === 401) {
                     createToast('Unauthorized. Please log in.', 'warning');
                 } else {
+                    postTags();
                     if (imgData.length === 0) {
                         createToast('Successfully updated review', 'success');
                     } else {
@@ -99,7 +100,7 @@ export default function EditReview({
                 if (res.status === 401) {
                     createToast('Unauthorized. Please log in.', 'warning');
                 } else {
-                    // postTags();
+                    postTags();
                     if (imgData.length === 0) {
                         createToast('Successfully posted review.', 'success');
                     } else {
@@ -142,7 +143,6 @@ export default function EditReview({
     }
 
     const postTags = () => {
-        console.log('edittag.postTags', editTags);
         let headers = { 'Content-Type':'application/json', 'Accept':'application/json'};
         let req = new Request(`${serverOrigin}/api/tags/for/review/${reviewId}`, {
             method: 'post',
@@ -156,7 +156,6 @@ export default function EditReview({
                 if (res.status === 401) {
                     createToast('Unauthorized. Please log in.', 'warning');
                 } else {
-                    createToast(`Successfully updated tags`, 'success');
                     getTags(); //refresh tag list from server
                 }
             })
@@ -255,7 +254,6 @@ export default function EditReview({
                 >
                     Submit review
                 </Button>
-                <Button onClick={postTags}>Submit Tags</Button>
             </div>
 
         </div>
