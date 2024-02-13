@@ -1,6 +1,6 @@
 //Allows editing of a given review. If the review has no ID associated with it, the review is posted as a new review.
 //Child component of Review route
-import { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
     Button,
@@ -19,39 +19,20 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import ImgUpload from '../components/ImgUpload';
 import { ServerContext } from '../context/ServerContext';
 import { ToastContext } from '../context/ToastContext';
+import { sakeTypes } from '../util/strings';
+import Tags, { exportTags, importTags } from './Tags';
 
 import './css/EditReview.css';
 
-const sakeTypes = [
-    {
-        value: "futsushu_honjozo",
-        label: "Futsushu/Honjozo"
-    },
-    {
-        value: "ginjo_tokubetsu",
-        label: "Ginjo/Tokubetsu Junmai"
-    },
-    {
-        value: "junmai",
-        label: "Junmai"
-    },
-    {
-        value: "daiginjo",
-        label: "Daiginjo"
-    },
-    {
-        value: "specialty",
-        label: "Specialty"
-    }
-]
-
 export default function EditReview({ 
     reviewData, setReviewData, 
+    masterTags, getTags,
     dateEnjoyed, setDateEnjoyed, 
     imgData, setImgData,
     isActive, 
-    reviewId 
+    reviewId
 }) {
+    const [editTags, setEditTags] = useState(importTags(masterTags));
     const { serverOrigin } = useContext(ServerContext);
     const { createToast } = useContext(ToastContext);
     const navigate = useNavigate();
@@ -67,6 +48,7 @@ export default function EditReview({
     const formatDate = (date) => {
         return date.toISOString().slice(0, 19).replace('T', ' ');
     }
+
     const submitReview = () => {
         let submitData = reviewData;
         submitData['c_date_enjoyed'] = formatDate(dateEnjoyed);
@@ -91,6 +73,7 @@ export default function EditReview({
                 if (res.status === 401) {
                     createToast('Unauthorized. Please log in.', 'warning');
                 } else {
+                    postTags();
                     if (imgData.length === 0) {
                         createToast('Successfully updated review', 'success');
                     } else {
@@ -117,6 +100,7 @@ export default function EditReview({
                 if (res.status === 401) {
                     createToast('Unauthorized. Please log in.', 'warning');
                 } else {
+                    postTags();
                     if (imgData.length === 0) {
                         createToast('Successfully posted review.', 'success');
                     } else {
@@ -148,7 +132,6 @@ export default function EditReview({
                 } else {
                     let text = submitMethod === 'post' ? 'posted' : 'updated';
                     createToast(`Successfully ${text} review`, 'success');
-                    console.log(`attempting to navigate to /review/${id} route`)
                     navigate(`/review/${id}`);
                 }
             })
@@ -157,6 +140,30 @@ export default function EditReview({
                 let text = submitMethod === 'post' ? 'Posted' : 'Updated';
                 createToast(`${text} review, but failed to upload image`, 'warning');
             });
+    }
+
+    const postTags = () => {
+        let headers = { 'Content-Type':'application/json', 'Accept':'application/json'};
+        let req = new Request(`${serverOrigin}/api/tags/for/review/${reviewId}`, {
+            method: 'post',
+            body: JSON.stringify(exportTags(editTags)),
+            headers: headers,
+            mode: 'cors',
+            credentials: 'include'
+        });
+        fetch(req)
+            .then(res => {
+                if (res.status === 401) {
+                    createToast('Unauthorized. Please log in.', 'warning');
+                } else {
+                    getTags(); //refresh tag list from server
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                let text = submitMethod === 'post' ? 'Posted' : 'Updated';
+                createToast(`${text} review, but failed to post tags`, 'warning');
+            })
     }
 
     return (
@@ -234,6 +241,7 @@ export default function EditReview({
                         margin: '1em'
                     }}
                 />
+                <Tags tags={editTags} setTags={setEditTags} readOnly={false} />
             </div>
             <div className="edit-review-submit-button">
                 <Button 

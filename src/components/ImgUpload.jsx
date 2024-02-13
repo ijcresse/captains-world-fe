@@ -11,8 +11,7 @@ const ImgUpload = ({imgData, setImgData, isActive}) => {
         accept: {
             'image/png': ['.png'],
             'image/gif': ['.gif'],
-            'image/jpeg': ['.jpeg'],
-            'image/webp': ['.webp']
+            'image/jpeg': ['.jpeg']
         },
         onDrop: acceptedFiles => {
             setImgData(acceptedFiles.map(file => Object.assign(file, {

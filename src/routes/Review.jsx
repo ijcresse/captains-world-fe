@@ -26,6 +26,7 @@ const baseReview = {
 
 export default function Review() {
     const [review, setReview] = useState(baseReview);
+    const [tags, setTags] = useState([])
     const [dateEnjoyed, setDateEnjoyed] = useState("");
     const [imgData, setImgData] = useState([]);
     const [editable, setEditable] = useState(false);
@@ -37,12 +38,28 @@ export default function Review() {
     const id = location[location.length - 1];
 
     function getReview() {
-        let req = new Request(`${serverOrigin}/api/drink/detail/${id}`)
+        let req = new Request(`${serverOrigin}/api/drink/detail/${id}`);
         fetch(req)
             .then(res => res.json())
             .then(res => {
                 setReview(res);
                 setDateEnjoyed(new Date(res['c_date_enjoyed']))
+            })
+            .catch(err => {
+                console.error(err);
+                createToast('Something went wrong', 'error');
+            })
+            .finally(() => {
+                getTags();
+            })
+    }
+
+    function getTags() {
+        let req = new Request(`${serverOrigin}/api/tags/for/review/${id}`);
+        fetch(req)
+            .then(res => res.json())
+            .then(res => {
+                setTags(res);
             })
             .catch(err => {
                 console.error(err);
@@ -82,6 +99,7 @@ export default function Review() {
                 {(id === 'new' || editable) ?
                     <EditReview 
                         reviewData={review} setReviewData={setReview}
+                        masterTags={tags} getTags={getTags}
                         dateEnjoyed={dateEnjoyed} setDateEnjoyed={setDateEnjoyed}
                         imgData={imgData} setImgData={setImgData}
                         isActive={editable}
@@ -89,7 +107,7 @@ export default function Review() {
                     /> :
                     <ViewReview 
                         reviewData={review}
-                        dateEnjoyed={review['c_date_enjoyed'] ? review['c_date_enjoyed'] : dateEnjoyed}
+                        masterTags={tags}
                         imgData={imgData}
                     />
                 }
@@ -97,5 +115,3 @@ export default function Review() {
         </Paper>
     )
 }
-
-//ok auth thing is working BUT it's rerendering like 5 times per page
