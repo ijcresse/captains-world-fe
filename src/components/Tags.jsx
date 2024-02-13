@@ -49,7 +49,7 @@ export default function Tag({tags, setTags, readOnly}) {
 
     return(
         <>
-            {tags ? 
+            {tags.length > 0 ? 
             <div>
                 <Typography variant="body1" sx={{ margin: '1em'}}>Tags:</Typography>
                 <ReactTags className="tags"
