@@ -1,15 +1,18 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import {
     Accordion,
     AccordionSummary,
     AccordionActions,
     AccordionDetails,
+    Autocomplete,
     Button,
+    Chip,
     FormControl,
     InputLabel,
     TextField,
     MenuItem,
-    Select
+    Select,
+    Typography
 } from '@mui/material';
 import { ExpandMore } from '@mui/icons-material';
 import { WithContext as ReactTags } from 'react-tag-input';
@@ -17,6 +20,8 @@ import { WithContext as ReactTags } from 'react-tag-input';
 import { ServerContext } from '../context/ServerContext';
 import { sakeTypes } from '../util/strings';
 import { ToastContext } from '../context/ToastContext';
+
+import './css/SearchPanel.css';
 
 export default function SearchPanel() {
     /*
@@ -39,9 +44,9 @@ export default function SearchPanel() {
     const [open, isOpen] = useState(false);
     const [nameParam, setNameParam] = useState("");
     const [typeParam, setTypeParam] = useState("");
-    const [tagParam, setTagParam] = useState();
+    const [tagParam, setTagParam] = useState([]);
     //list of tags for autocomplete purposes
-    const [tagList, setTagList] = useState();
+    const [tagList, setTagList] = useState([]);
 
     const { serverOrigin } = useContext(ServerContext);
     const { createToast } = useContext(ToastContext);
@@ -66,15 +71,26 @@ export default function SearchPanel() {
             })
     }
 
+    useEffect(() => {
+        fetchTags();
+    }, [])
+
     const handleInputChange = (e) => {
         const {name, value} = e.target;
+        console.log('handleInputChange', name, value);
+    }
+
+    const handleDelete = (tag) => {
+        console.log('handleDelete.tag', tag);
     }
 
     const handleSearch = () => {
-        //assemble data from tags
-
-        //temp
-        fetchTags();
+        const content = {
+            'name' : nameParam,
+            'type' : typeParam,
+            'tags' : tagParam
+        }
+        console.log('search query', content);
     }
     //ok i need a List of Tags API
     //maybe i can simplify the backend api to not have to do that delta stuff
@@ -96,30 +112,65 @@ export default function SearchPanel() {
             <AccordionDetails>
 
             </AccordionDetails>
-            <AccordionActions>
-                <TextField
-                    name="c_name"
-                    label="Sake Name"
-                />
-                <FormControl>
-                    <InputLabel>Sake Type</InputLabel>
-                    <Select
-                        name="c_sake_type"
-                        label="Sake Type"
-                        value={sakeTypes[0].value}
-                    >
-                        {sakeTypes.map((type) => {
-                            <MenuItem 
-                                key={type.value} 
-                                value={type.value}
+            <AccordionActions className="search-actions">
+                <div className="search-actions-options">
+                    <div className="search-actions-query-params">
+                        <TextField className="search-actions-name"
+                            name="c_name"
+                            label="Sake Name"
+                            sx={{margin: 'auto'}}
+                        />
+                        <FormControl className="search-actions-type" sx={{margin: 'auto'}}>
+                            <InputLabel>Sake Type</InputLabel>
+                            <Select
+                                name="c_sake_type"
+                                label="Sake Type"
+                                value={""}
                             >
-                                {type.label}
-                            </MenuItem>
-                        })}
-                    </Select>
-                </FormControl>
-                
-                <Button onClick={handleSearch}>Search</Button>
+                                {sakeTypes.map((type) => {
+                                    <MenuItem 
+                                        key={type.value} 
+                                        value={type.value}
+                                    >
+                                        {type.label}
+                                    </MenuItem>
+                                })}
+                            </Select>
+                        </FormControl>
+                    </div>
+                    <div className="search-actions-tag-params">
+                        <div className="search-actions-tag-display">
+                            <Typography variant='body1'>Tags:</Typography>
+                            <div className="search-actions-tag-list">
+                                {/* TODO: swap tagList for tagParams (actual selected items) */}
+                                {tagList.map((tag) => {
+                                    return(
+                                        <Chip 
+                                            key={tag['c_id']}
+                                            label={tag['c_tag_name']}
+                                            onDelete={() => handleDelete(tag)}
+                                        />
+                                    )
+                                })}
+                            </div>
+                        </div>
+                        <Autocomplete className="search-actions-tags-input"
+                            freeSolo
+                            options={tagList.map((tag) => tag['c_tag_name'])}
+                            renderInput={(params) => <TextField {...params} label="Tag Search" />}
+                        />
+                    </div>
+                </div>
+                <div className="search-actions-button-top">
+                    <Button 
+                        className="search-actions-button" 
+                        onClick={handleSearch}
+                        variant="contained"
+                        disableElevation
+                    >
+                            Search
+                    </Button>
+                </div>
             </AccordionActions>
         </Accordion>
     )

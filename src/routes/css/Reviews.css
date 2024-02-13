@@ -4,6 +4,11 @@
     flex-direction: column;
 }
 
+.reviews-search-panel {
+    margin: 0 1em 1em 1em;
+    width: 100%;
+}
+
 .reviews-footer {
     display: flex;
     align-items: flex-start;

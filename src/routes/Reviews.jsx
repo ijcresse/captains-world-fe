@@ -78,9 +78,9 @@ export default function Reviews() {
 
     return(
         <Container className="reviews-top">
-            {/* <div className="reviews-search-panel">
+            <div className="reviews-search-panel">
                 <SearchPanel />
-            </div> */}
+            </div>
             <div className="reviews-container">
                 {reviews ? reviews.map(review => {
                     return (
