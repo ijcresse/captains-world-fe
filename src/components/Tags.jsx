@@ -48,19 +48,22 @@ export default function Tag({tags, setTags, readOnly}) {
     }
 
     return(
-        <div>
-            <Typography variant="body1" sx={{ margin: '1em'}}>Tags:</Typography>
-            <ReactTags className="tags"
-                tags={tags}
-                handleDelete={handleDelete}
-                handleAddition={handleAddition}
-                handleDrag={handleDrag}
-                delimiters={tagDelimiters}
-                labelField={'c_tag_name'}
-                inputFieldPosition={'bottom'}
-                readOnly={readOnly} />
-        </div>
-        
+        <>
+            {tags ? 
+            <div>
+                <Typography variant="body1" sx={{ margin: '1em'}}>Tags:</Typography>
+                <ReactTags className="tags"
+                    tags={tags}
+                    handleDelete={handleDelete}
+                    handleAddition={handleAddition}
+                    handleDrag={handleDrag}
+                    delimiters={tagDelimiters}
+                    labelField={'c_tag_name'}
+                    inputFieldPosition={'bottom'}
+                    readOnly={readOnly} />
+            </div> 
+            : <></>}
+        </>
     )
 }
 
