@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom'
 import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { ServerProvider } from '../context/ServerContext';
@@ -52,10 +53,25 @@ export default function Root() {
       setOpen(false);
     }
 
+    const constructionBarrier = () => {
+      if (import.meta.env.PROD) {
+        console.log("Hi! This website is still undergoing construction. Look forward to seeing where it goes soon!");
+        return (
+          <div className="root-construction">
+            <Typography variant="h1" className="root-construction-text">
+              Under Construction!
+            </Typography>
+          </div>)
+      } else {
+        return <></>
+      }
+    }
+
     return(
         <ThemeProvider theme={theme} >
             <ServerProvider>
                 <ToastProvider>
+                    {constructionBarrier()}
                     <Box id="root-top">
                         <NavBar handleOpen={handleOpen}/>
                         <Box id="outlet-top">
