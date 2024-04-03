@@ -6,6 +6,7 @@ import {
 
 import './css/ViewReview.css';
 import Tags, { importTags } from './Tags';
+import { sakeTypesMap } from '../util/strings.js';
 
 export default function ViewReview({ reviewData, masterTags, imgData }) {
     //prioritizes newly uploaded image, then current image, and blank if empty.
@@ -26,7 +27,7 @@ export default function ViewReview({ reviewData, masterTags, imgData }) {
             </div>
             <div className="view-review-metadata">
                 <Typography className="view-review-name" variant="h4" sx={{margin: '1em'}}>{reviewData['c_name']}</Typography>
-                <Typography className="view-review-type" variant="subtitle1" sx={{margin: '1em'}}>{reviewData['c_sake_type']}</Typography>
+                <Typography className="view-review-type" variant="subtitle1" sx={{margin: '1em'}}>{sakeTypesMap[reviewData['c_sake_type']]}</Typography>
                 <Typography className="view-review-enjoyed" variant="subtitle1" sx={{margin: '1em'}}>{reviewData['c_date_enjoyed']}</Typography>
                 <Typography className="view-review-desc" variant="body1" sx={{margin: '1em'}}>{reviewData['c_description']}</Typography>
                 <div className="view-review-taglist">

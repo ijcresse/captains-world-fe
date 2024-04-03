@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom'
 import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { ServerProvider } from '../context/ServerContext';

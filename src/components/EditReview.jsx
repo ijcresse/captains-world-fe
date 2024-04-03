@@ -19,7 +19,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import ImgUpload from '../components/ImgUpload';
 import { ServerContext } from '../context/ServerContext';
 import { ToastContext } from '../context/ToastContext';
-import { sakeTypes } from '../util/strings';
+import { sakeTypesMap } from '../util/strings';
+
 import Tags, { exportTags, importTags } from './Tags';
 
 import './css/EditReview.css';
