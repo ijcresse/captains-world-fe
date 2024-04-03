@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext } from 'react';
 
 const ServerContext = createContext(null);
 const prod = import.meta.env.PROD;
@@ -14,7 +14,8 @@ function ServerProvider({children}) {
             credentials: 'include'
         })
         fetch(req)
-            .then(() => {
+            .then(res => {
+                console.log(res);
                 return true;
             })
             .catch(err => {
@@ -24,7 +25,7 @@ function ServerProvider({children}) {
     }
 
     return (
-        <ServerContext.Provider value={{serverOrigin, isAuthorized, setAuthThreshold}}>
+        <ServerContext.Provider value={{ serverOrigin, isAuthorized }}>
             {children}
         </ServerContext.Provider>
     )

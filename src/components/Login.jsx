@@ -1,9 +1,6 @@
 //login route. No link provided, this is need to know only
 import { useContext, useState } from 'react';
 import { 
-    Dialog,
-    DialogContent, 
-    DialogTitle,
     TextField,  
     Button,  
     FormControl
@@ -16,13 +13,13 @@ const post_headers = {
     'Content-Type': 'application/json',
 }
 
-function Login({open, setOpen, handleClose}) {
+function Login({handleClose}) {
+    const { serverOrigin } = useContext(ServerContext);
+    const { createToast } = useContext(ToastContext);
     const [formData, setFormData] = useState({
         username: "",
         password: "",
     });
-    const { createToast } = useContext(ToastContext);
-    const { serverOrigin, setAuthThreshold } = useContext(ServerContext);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -31,7 +28,7 @@ function Login({open, setOpen, handleClose}) {
             [name]: value
         })
     }
-    
+
     const signIn = (e) => {
         e.preventDefault();
         let req = new Request(`${serverOrigin}/api/user/login`, {
@@ -47,7 +44,7 @@ function Login({open, setOpen, handleClose}) {
                     createToast('Unrecognized credentials. Please try again', 'warning')
                 } else {
                     createToast('Signed in!', 'success');
-                    setOpen(false);
+                    handleClose();
                 }
             })
             .catch(err => {
@@ -58,74 +55,30 @@ function Login({open, setOpen, handleClose}) {
             });
     }
 
-    const verifySession = () => {
-        let req = new Request(`${serverOrigin}/api/user/session`, {
-            method: 'get',
-            mode: 'cors',
-            credentials: 'include'
-        })
-        fetch(req)
-            .then(res => {
-                if (res.status === 200) {
-                    createToast('Valid session', 'success');
-                } else if (res.status === 401) {
-                    createToast('Invalid session', 'warning')
-                }
-            })
-            .catch(err => {
-                console.error(err)
-                createToast('Something went wrong', 'error');
-            });
-    }
-
-    const logout = () => {
-        let req = new Request(`${serverOrigin}/api/user/logout`, {
-            method: 'get',
-            mode: 'cors',
-            credentials: 'include'
-        })
-        fetch(req)
-            .then(res => {
-                createToast('Logged out', 'success');
-                setAuthThreshold(0);
-            })
-            .catch(err => {
-                console.error(err)
-                createToast('Something went wrong', 'error');
-            })
-            .finally(() => {
-                window.location.reload();
-            });
-    }
-
     return(
-        <Dialog id="login-top" open={open} onClose={handleClose}>
-            <DialogTitle>Please log in</DialogTitle>
-            <DialogContent>
-                <form onSubmit={e => signIn(e)} >
-                    <FormControl>
-                        <TextField 
-                            name="username" 
-                            label="Username" 
-                            variant="filled" 
-                            value={formData['username']} 
-                            onChange={handleInputChange} 
-                        />
-                        <TextField 
-                            name="password" 
-                            label="Password" 
-                            type="password" 
-                            variant="filled" 
-                            value={formData['password']} 
-                            onChange={handleInputChange} 
-                        />
-                    </FormControl>
-                    <Button type="submit" size="medium" color="primary" onClick={e => signIn(e)}>Sign In</Button>
-                </form>
-                <Button size="medium" color="secondary" onClick={() => verifySession()}>Verify Session</Button>
-                <Button size="medium" color="warning" onClick={() => logout()}>Logout</Button>
-            </DialogContent>
-        </Dialog>
+        <div id="login-root">
+            <form onSubmit={e => signIn(e)} >
+                <FormControl>
+                    <TextField 
+                        name="username" 
+                        label="Username" 
+                        variant="filled" 
+                        value={formData['username']} 
+                        onChange={handleInputChange} 
+                    />
+                    <TextField 
+                        name="password" 
+                        label="Password" 
+                        type="password" 
+                        variant="filled" 
+                        value={formData['password']} 
+                        onChange={handleInputChange} 
+                    />
+                </FormControl>
+                <Button type="submit" size="medium" color="primary" onClick={e => signIn(e)}>Sign In</Button>
+            </form>
+            
+        </div>
     )
 }
 

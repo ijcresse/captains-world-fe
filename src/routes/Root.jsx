@@ -42,29 +42,18 @@ const theme = createTheme({
 });
 
 export default function Root() {
-    const [open, setOpen] = useState(false);
-
-    const handleOpen = () => {
-      setOpen(true);
-    }
-    
-    const handleClose = () => {
-      setOpen(false);
-    }
-
     return(
         <ThemeProvider theme={theme} >
             <ServerProvider>
                 <ToastProvider>
                     <Box id="root-top">
-                        <NavBar handleOpen={handleOpen}/>
+                        <NavBar/>
                         <Box id="outlet-top">
                             <Outlet />
                         </Box>
                         <Logo transparency={true} />
                     </Box>
                     <Notification />
-                    <Login open={open} setOpen={setOpen} handleClose={handleClose}/>
                 </ToastProvider>
             </ServerProvider>
         </ThemeProvider>

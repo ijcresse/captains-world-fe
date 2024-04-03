@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 
 import { ServerContext } from '../context/ServerContext';
 import { ToastContext } from '../context/ToastContext';
@@ -94,11 +93,6 @@ export default function Reviews() {
                 <Stack spacing={2}>
                     <Pagination count={pageCount} page={page} onChange={handleChange} />
                 </Stack>
-                {isAuthorized() &&
-                    <Link to={'/review/new'}>
-                        <Button variant="contained">CREATE</Button>
-                    </Link>
-                }
             </div>
         </Container>
     )
