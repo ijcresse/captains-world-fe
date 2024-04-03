@@ -8,6 +8,12 @@ import './css/ViewReview.css';
 import Tags, { importTags } from './Tags';
 import { sakeTypesMap } from '../util/strings.js';
 
+/**
+ * 
+ * @param reviewData metadata for an existing review
+ * @param masterTags authoritative list of tags for this review
+ * @param imgData the image data uploaded during this session. used during editing review process
+ */
 export default function ViewReview({ reviewData, masterTags, imgData }) {
     //prioritizes newly uploaded image, then current image, and blank if empty.
     const ImageDisplay = () => {

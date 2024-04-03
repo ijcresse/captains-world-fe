@@ -14,8 +14,7 @@ function ServerProvider({children}) {
             credentials: 'include'
         })
         fetch(req)
-            .then(res => {
-                console.log(res);
+            .then(() => {
                 return true;
             })
             .catch(err => {
