@@ -53,25 +53,10 @@ export default function Root() {
       setOpen(false);
     }
 
-    const constructionBarrier = () => {
-      if (import.meta.env.PROD) {
-        console.log("Hi! This website is still undergoing construction. Look forward to seeing where it goes soon!");
-        return (
-          <div className="root-construction">
-            <Typography variant="h1" className="root-construction-text">
-              Under Construction!
-            </Typography>
-          </div>)
-      } else {
-        return <></>
-      }
-    }
-
     return(
         <ThemeProvider theme={theme} >
             <ServerProvider>
                 <ToastProvider>
-                    {constructionBarrier()}
                     <Box id="root-top">
                         <NavBar handleOpen={handleOpen}/>
                         <Box id="outlet-top">
