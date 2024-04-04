@@ -1,0 +1,19 @@
+#home-hero-root {
+    width: 100%;
+    height: 75vh;
+}
+
+#home-hero-image-container {
+    z-index: 0;
+    position: absolute;
+    width: max-content;
+}
+
+.height-inherit {
+    height: inherit;
+}
+
+.content-top {
+    width: 100%;
+    height: 100%;
+}

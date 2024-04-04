@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    height: fit-content;
+    height: 100%;
 }
 
 .root-construction {
@@ -26,7 +26,8 @@
 
 #outlet-top {
     padding: 0.5em;
-    width: 75%;
-    height: fit-content;
+    width: -moz-available;
+    width: -webkit-fill-available;
+    height: inherit;
     z-index: 1;
 }

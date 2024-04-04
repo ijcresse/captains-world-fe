@@ -30,8 +30,8 @@ function NavBar() {
 
     const pages = [
         {
-            'name': 'Home',
-            'url': '/home'
+            'name': "Captain's world",
+            'url': '/'
         },
         {
             'name': 'Reviews',

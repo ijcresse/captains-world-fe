@@ -44,13 +44,13 @@ export default function Root() {
         <ThemeProvider theme={theme} >
             <ServerProvider>
                 <ToastProvider>
-                    <Box id="root-top">
+                    <div id="root-top">
                         <NavBar/>
-                        <Box id="outlet-top">
+                        <div id="outlet-top">
                             <Outlet />
-                        </Box>
+                        </div>
                         <Logo transparency={true} />
-                    </Box>
+                    </div>
                     <Notification />
                 </ToastProvider>
             </ServerProvider>

@@ -1,11 +1,17 @@
-//homepage for captain's world. effectively giant navbar page.
-import { Container } from '@mui/material';
-import Logo from '../components/Logo';
+import HomeHero from "../components/HomeHero"
+
+import './css/Homepage.css';
+/**
+ * Homepage for Captain's World. Contains the following:
+ * Hero that links to reviews
+ * About
+ * Contact
+ */
 
 export default function Homepage() {
     return(
-        <Container className="homepage-top">
-            HP
-        </Container>
+        <div id="home-root">
+            <HomeHero />
+        </div>
     )
 }
