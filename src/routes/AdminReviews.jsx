@@ -100,7 +100,7 @@ export default function AdminReviews() {
                 </Link>
                 {reviews ? reviews.map(review => {
                     return (
-                        <Link to={'admin/review/' + review['c_id']} key={review['c_id']}>
+                        <Link to={'/admin/review/' + review['c_id']} key={review['c_id']}>
                             <ReviewCard reviewInfo={review} key={review['c_id']} isAuthorized={isAuthorized()} />
                         </Link>
                     )

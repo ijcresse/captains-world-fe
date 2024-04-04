@@ -16,6 +16,7 @@ const ReviewCard = ({reviewInfo, isAuthorized}) => {
     }
 
     //sketched out for later task
+    //consider moving this adminRow to _specifically_ the adminReviews page.
     const adminRow = (
         <div className="review-card-admin-row">
             <DeleteIcon onClick={handleDelete} />
