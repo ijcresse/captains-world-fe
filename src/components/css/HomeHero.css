@@ -13,7 +13,18 @@
     height: inherit;
 }
 
-.content-top {
-    width: 100%;
+#content-top {
+    width: inherit;
     height: 100%;
+}
+
+#content-order {
+    justify-content: space-evenly;
+    margin-top: 2em;
+    margin-left: 2em;
+}
+
+#reviews-link {
+    padding: 1em;
+    width: 50%;
 }

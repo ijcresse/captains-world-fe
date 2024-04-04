@@ -4,29 +4,48 @@ import {
     Typography,
     Button
 } from '@mui/material';
-
+import { useNavigate } from 'react-router';
 import './css/HomeHero.css';
 
 export default function HomeHero() {
+    const navigate = useNavigate();
+
+    const reviewsLink = () => {
+        navigate('/reviews');
+    }
+
+    const CardContent = (
+        <Paper id="content-top" elevation={2}>
+            <Grid id="content-order" className="height-inherit" container item xs={8} direction="column">
+                <Typography variant="h3">
+                    Captain's World
+                </Typography>
+                <Typography variant="subtitle2">
+                    Reviews and musings by Holly Reinsch, sake sommelier
+                </Typography>
+                <Button id="reviews-link" variant="contained" onClick={() => reviewsLink()}>
+                    Reviews
+                </Button>
+            </Grid>
+        </Paper>
+    )
 
     return(
         <Grid id="home-hero-root" container direction="row">
-            <Grid className="grid-top height-inherit" 
-                    container direction="column" item xs={9}
+            <Grid className="height-inherit" 
+                    container direction="column" item xs={12} md={9}
                     justifyContent="center">
                 <Grid className="height-inherit"
-                        container direction="row" item xs={8}
+                        container direction="row" item md={8} xs={10}
                         justifyContent="center">
-                    <Grid direction="column" item xs={8} >
-                        <Paper className="content-top">
-                            main content for material
-                        </Paper>
+                    <Grid direction="column" container item md={8} >
+                        { CardContent }
                     </Grid>
                 </Grid>
             </Grid>
-            {/* <Grid id="home-hero-image-container">
+            {/* <div id="home-hero-image-container">
                 img (z index needs to be below other areas)
-            </Grid> */}
+            </div> */}
         </Grid>
     )
 }

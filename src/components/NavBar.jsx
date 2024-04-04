@@ -19,10 +19,11 @@ function NavBar() {
         setOpen(false);
     }
 
-    const activePageClass = (pageName) => {
+    const activePageClass = (urlName) => {
         let className = "navbar-item";
         //todo: hacky
-        if (location.pathname.includes(pageName) || (pageName === 'reviews' && location.pathname.includes('review'))) {
+        if (location.pathname.includes(urlName) || 
+                (urlName === '/reviews' && location.pathname.includes('review'))) {
             className += " navbar-active";
         }
         return className;
@@ -30,7 +31,7 @@ function NavBar() {
 
     const pages = [
         {
-            'name': "Captain's world",
+            'name': "Captain's World",
             'url': '/'
         },
         {
@@ -50,7 +51,12 @@ function NavBar() {
     return (
         <div id="navbar-top">
             { pages ? pages.map(page => {
-                return (<Link to={page.url} className={activePageClass(page.name.toLowerCase())} key={page.url}>{page.name}</Link>)
+                return (
+                    <Link to={page.url} 
+                            className={activePageClass(page.url.toLowerCase())} 
+                            key={page.url}>
+                        {page.name}
+                    </Link>)
             }) :
             <></>}
             <AccountCircleIcon sx={{cursor: 'pointer', color: "#1a1b85"}} className="navbar-item" onClick={handleOpen}/>
