@@ -27,11 +27,8 @@ const baseReview = {
 export default function Review() {
     const [review, setReview] = useState(baseReview);
     const [tags, setTags] = useState([])
-    const [dateEnjoyed, setDateEnjoyed] = useState("");
-    const [imgData, setImgData] = useState([]);
-    const [editable, setEditable] = useState(false);
 
-    const { serverOrigin, isAuthorized } = useContext(ServerContext);
+    const { serverOrigin } = useContext(ServerContext);
     const { createToast } = useContext(ToastContext);
 
     const location = useLocation().pathname.split('/');
@@ -43,7 +40,6 @@ export default function Review() {
             .then(res => res.json())
             .then(res => {
                 setReview(res);
-                setDateEnjoyed(new Date(res['c_date_enjoyed']))
             })
             .catch(err => {
                 console.error(err);
@@ -68,50 +64,16 @@ export default function Review() {
     }
 
     useEffect(() => {
-        if (id === 'new') {
-            setEditable(true);
-        } else {
-            getReview();
-        }
+        getReview();
     }, [])
-
-    const handleSwitchChange = (e) => {
-        setEditable(e.target.checked)
-    }
 
     return(
         <Paper className="review-top">
-            {isAuthorized() ? <div className="review-switch">
-                <FormGroup>
-                    <FormControlLabel 
-                    control={
-                        <Switch
-                            checked={editable}
-                            onChange={handleSwitchChange}
-                        />
-                    } 
-                        label={ editable ? 'Editing' : 'Viewing'}
-                        labelPlacement="start"
-                    />
-                </FormGroup>
-            </div> : <></>}
-            <div className="review-outlet">
-                {(id === 'new' || editable) ?
-                    <EditReview 
-                        reviewData={review} setReviewData={setReview}
-                        masterTags={tags} getTags={getTags}
-                        dateEnjoyed={dateEnjoyed} setDateEnjoyed={setDateEnjoyed}
-                        imgData={imgData} setImgData={setImgData}
-                        isActive={editable}
-                        reviewId={id}
-                    /> :
-                    <ViewReview 
-                        reviewData={review}
-                        masterTags={tags}
-                        imgData={imgData}
-                    />
-                }
-            </div>
+            <ViewReview 
+                reviewData={review}
+                masterTags={tags}
+                imgData={[]}
+            />
         </Paper>
     )
 }

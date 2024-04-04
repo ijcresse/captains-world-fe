@@ -1,11 +1,23 @@
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
+import AdminMenu from './AdminMenu';
 
 import './css/NavBar.css'
 
 //navigation bar at top of page.
-function NavBar({handleOpen}) {
+function NavBar() {
     const location = useLocation();
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = () => {
+        setOpen(true);
+    }
+    
+    const handleClose = () => {
+        setOpen(false);
+    }
 
     const activePageClass = (pageName) => {
         let className = "navbar-item";
@@ -42,6 +54,10 @@ function NavBar({handleOpen}) {
             }) :
             <></>}
             <AccountCircleIcon sx={{cursor: 'pointer', color: "#1a1b85"}} className="navbar-item" onClick={handleOpen}/>
+            {open ? 
+                <AdminMenu open={open} handleClose={handleClose} />
+                : <></>
+            }
         </div>
     )
 }

@@ -21,3 +21,10 @@ export const sakeTypes = [
     }
 ]
 
+export const sakeTypesMap = {
+    "futsushu_honjozo" : "Futsushu/Honjozo",
+    "ginjo_tokubetsu" : "Ginjo/Tokubetsu Junmai",
+    "junmai" : "Junmai",
+    "daiginjo" : "Daiginjo",
+    "specialty" : "Specialty"
+}
