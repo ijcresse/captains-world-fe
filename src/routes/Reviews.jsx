@@ -24,7 +24,7 @@ export default function Reviews() {
     const [page, setPage] = useState(1);
     const [pageCount, setPageCount] = useState(0);
     const [reviews, setReviews] = useState([]);
-    const { serverOrigin, isAuthorized } = useContext(ServerContext);
+    const { serverOrigin } = useContext(ServerContext);
     const { createToast } = useContext(ToastContext);
 
 

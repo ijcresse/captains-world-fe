@@ -1,5 +1,4 @@
 //root page that contains and coordinates other elements from other pages
-import { useState } from 'react';
 import { Outlet } from 'react-router-dom'
 import Box from '@mui/material/Box'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -7,7 +6,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { ServerProvider } from '../context/ServerContext';
 import { ToastProvider } from '../context/ToastContext';
 import NavBar from '../components/NavBar';
-import Login from '../components/Login';
 import Notification from '../components/Notification';
 import Logo from '../components/Logo';
 import './css/Root.css';

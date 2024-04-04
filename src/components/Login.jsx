@@ -48,6 +48,7 @@ function Login({handleClose}) {
                 }
             })
             .catch(err => {
+                createToast('Sorry, something went wrong.', 'error');
                 console.warn(err);
             })
             .finally(() => {

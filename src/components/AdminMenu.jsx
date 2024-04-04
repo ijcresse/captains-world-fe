@@ -19,10 +19,8 @@ function AdminMenu({open, handleClose}) {
     
     const authMenu = (
         <div>
-            <Link to={'/admin/reviews'}>
-                <Typography variant="body1">
-                    Edit Reviews
-                </Typography>
+            <Link to={'admin/reviews'}>
+                Edit Reviews
             </Link>
             <Divider />
             <Button type="submit" size="medium" onClick={() => logout()}>
@@ -33,7 +31,12 @@ function AdminMenu({open, handleClose}) {
 
     //TODO: component drilling
     const unauthMenu = (
-        <Login handleClose={handleClose} />
+        <div>
+            <Login handleClose={handleClose} />
+            <Button type="submit" size="medium" onClick={() => logout()}>
+                Log Out
+            </Button>
+        </div>
     )
 
     const logout = () => {

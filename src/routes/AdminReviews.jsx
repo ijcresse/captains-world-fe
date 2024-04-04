@@ -3,7 +3,7 @@
  */
 
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Container from '@mui/material/Container';
 import Pagination from '@mui/material/Pagination';
@@ -16,7 +16,7 @@ import SearchPanel from '../components/SearchPanel';
 import ReviewCard from '../components/ReviewCard';
 import './css/Reviews.css';
 
-/*
+/**
  * Reviews page shows multiple abbreviated sake reviews.
  * Hosts the ReviewPage component, which actually displays the ReviewCards.
  * Coordinates that with the Pagination materialui component.
@@ -26,12 +26,14 @@ import './css/Reviews.css';
 const PAGE_LIMIT = 12;
 
 export default function Reviews() {
-    const [page, setPage] = useState(1);
-    const [pageCount, setPageCount] = useState(0);
-    const [reviews, setReviews] = useState([]);
     const { serverOrigin, isAuthorized } = useContext(ServerContext);
     const { createToast } = useContext(ToastContext);
 
+    const [page, setPage] = useState(1);
+    const [pageCount, setPageCount] = useState(0);
+    const [reviews, setReviews] = useState([]);
+
+    const navigate = useNavigate();
 
     function getReviews() {
         let req = new Request(`${serverOrigin}/api/drink/list?limit=${PAGE_LIMIT}&offset=${PAGE_LIMIT * (page - 1)}`, {
@@ -72,6 +74,10 @@ export default function Reviews() {
     }
 
     useEffect(() => {
+        if (!isAuthorized) {
+            console.warn('not authorized, sending you back to reviews')
+            navigate("/reviews");
+        }
         getReviews();
         getPageCount();
     }, [page]); //update when page changes
@@ -88,7 +94,7 @@ export default function Reviews() {
             <div className="reviews-container">
                 {reviews ? reviews.map(review => {
                     return (
-                        <Link to={'/review/' + review['c_id']} key={review['c_id']}>
+                        <Link to={'admin/review/' + review['c_id']} key={review['c_id']}>
                             <ReviewCard reviewInfo={review} key={review['c_id']} />
                         </Link>
                     )

@@ -5,7 +5,7 @@
 //Individual review page. Supports edit mode for logged in users.
 
 import { useContext, useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
     Switch,
     FormGroup,
@@ -37,7 +37,8 @@ export default function AdminReview() {
 
     const { serverOrigin, isAuthorized } = useContext(ServerContext);
     const { createToast } = useContext(ToastContext);
-
+    
+    const navigate = useNavigate();
     const location = useLocation().pathname.split('/');
     const id = location[location.length - 1];
 
@@ -72,6 +73,9 @@ export default function AdminReview() {
     }
 
     useEffect(() => {
+        if (!isAuthorized) {
+            navigate(`/review/${id}`)
+        }
         if (id === 'new') {
             setEditable(true);
         } else {
