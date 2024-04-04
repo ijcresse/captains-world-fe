@@ -73,7 +73,7 @@ export default function AdminReview() {
     }
 
     useEffect(() => {
-        if (!isAuthorized) {
+        if (!isAuthorized()) {
             navigate(`/review/${id}`)
         }
         if (id === 'new') {
@@ -114,10 +114,10 @@ export default function AdminReview() {
                         reviewId={id}
                     /> :
                     <ViewReview 
-                    reviewData={review}
-                    masterTags={tags}
-                    imgData={imgData}
-                />
+                        reviewData={review}
+                        masterTags={tags}
+                        imgData={imgData}
+                    />
                 }
             </div>
         </Paper>

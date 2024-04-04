@@ -25,7 +25,7 @@ import './css/Reviews.css';
 
 const PAGE_LIMIT = 12;
 
-export default function Reviews() {
+export default function AdminReviews() {
     const { serverOrigin, isAuthorized } = useContext(ServerContext);
     const { createToast } = useContext(ToastContext);
 
@@ -74,8 +74,7 @@ export default function Reviews() {
     }
 
     useEffect(() => {
-        if (!isAuthorized) {
-            console.warn('not authorized, sending you back to reviews')
+        if (!isAuthorized()) {
             navigate("/reviews");
         }
         getReviews();
@@ -86,16 +85,23 @@ export default function Reviews() {
         setPage(value);
     }
 
+    const handleDelete = (reviewId) => {
+        console.log('attempting to delete review with id', reviewId);
+    }
+
     return(
         <Container className="reviews-top">
             {/* <div className="reviews-search-panel">
                 <SearchPanel />
             </div> */}
             <div className="reviews-container">
+                <Link to={'/admin/review/new'}>
+                    <ReviewCard key={'new_review'} />
+                </Link>
                 {reviews ? reviews.map(review => {
                     return (
                         <Link to={'admin/review/' + review['c_id']} key={review['c_id']}>
-                            <ReviewCard reviewInfo={review} key={review['c_id']} />
+                            <ReviewCard reviewInfo={review} key={review['c_id']} isAuthorized={isAuthorized()} />
                         </Link>
                     )
                 }) : <></>}
@@ -104,11 +110,6 @@ export default function Reviews() {
                 <Stack spacing={2}>
                     <Pagination count={pageCount} page={page} onChange={handleChange} />
                 </Stack>
-                {isAuthorized() &&
-                    <Link to={'/review/new'}>
-                        <Button variant="contained">CREATE</Button>
-                    </Link>
-                }
             </div>
         </Container>
     )

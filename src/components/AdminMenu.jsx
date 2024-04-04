@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import {
     Dialog,
     DialogTitle,
     DialogContent,
     Typography,
-    Link,
     Divider,
     Button
 } from '@mui/material';
@@ -13,9 +13,15 @@ import { ServerContext } from '../context/ServerContext';
 import { ToastContext } from '../context/ToastContext';
 import Login from './Login';
 
+/**
+ * Controls access to administrative functionality:
+ * Login / Logout
+ * Link to AdminReviews page
+ */
 function AdminMenu({open, handleClose}) {
     const { serverOrigin, isAuthorized } = useContext(ServerContext);
     const { createToast } = useContext(ToastContext);
+    const navigate = useNavigate();
     
     const authMenu = (
         <div>
@@ -23,16 +29,6 @@ function AdminMenu({open, handleClose}) {
                 Edit Reviews
             </Link>
             <Divider />
-            <Button type="submit" size="medium" onClick={() => logout()}>
-                Log Out
-            </Button>
-        </div>
-    )
-
-    //TODO: component drilling
-    const unauthMenu = (
-        <div>
-            <Login handleClose={handleClose} />
             <Button type="submit" size="medium" onClick={() => logout()}>
                 Log Out
             </Button>
@@ -54,7 +50,8 @@ function AdminMenu({open, handleClose}) {
                 createToast('Something went wrong', 'error');
             })
             .finally(() => {
-                window.location.reload();
+                //refresh
+                navigate(0)
             });
     }
 
@@ -66,7 +63,7 @@ function AdminMenu({open, handleClose}) {
             <DialogContent>
                 {isAuthorized() ?
                     authMenu :
-                    unauthMenu
+                    <Login handleClose={handleClose} />
                 }
             </DialogContent>
         </Dialog>

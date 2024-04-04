@@ -84,7 +84,7 @@ export default function Reviews() {
                 {reviews ? reviews.map(review => {
                     return (
                         <Link to={'/review/' + review['c_id']} key={review['c_id']}>
-                            <ReviewCard reviewInfo={review} key={review['c_id']} />
+                            <ReviewCard reviewInfo={review} key={review['c_id']} isAuthorized={false}/>
                         </Link>
                     )
                 }) : <></>}
