@@ -1,5 +1,6 @@
 import { 
     Grid,
+    Stack,
     Paper,
     Typography,
     Button
@@ -20,9 +21,14 @@ export default function HomeHero() {
                 <Typography variant="h3">
                     Captain's World
                 </Typography>
-                <Typography variant="subtitle2">
-                    Reviews and musings by Holly Reinsch, sake sommelier
-                </Typography>
+                <Stack>
+                    <Typography variant="subtitle2">
+                        Reviews and musings by Holly Reinsch,
+                    </Typography>
+                    <Typography variant="subtitle2">
+                        Sake sommelier
+                    </Typography>
+                </Stack>
                 <Button id="reviews-link" variant="contained" onClick={() => reviewsLink()}>
                     Reviews
                 </Button>
