@@ -1,9 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import Container from '@mui/material/Container';
-import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
+import {
+    Grid,
+    Typography,
+    Stack,
+    Pagination
+} from '@mui/material';
 
 import { ServerContext } from '../context/ServerContext';
 import { ToastContext } from '../context/ToastContext';
@@ -76,11 +79,11 @@ export default function Reviews() {
     }
 
     return(
-        <Container className="reviews-top">
+        <Grid container id="reviews-top">
             {/* <div className="reviews-search-panel">
                 <SearchPanel />
             </div> */}
-            <div className="reviews-container">
+            <div id="reviews-container">
                 {reviews ? reviews.map(review => {
                     return (
                         <Link to={'/review/' + review['c_id']} key={review['c_id']}>
@@ -89,11 +92,11 @@ export default function Reviews() {
                     )
                 }) : <></>}
             </div>
-            <div className="reviews-footer">
+            <div id="reviews-footer">
                 <Stack spacing={2}>
                     <Pagination count={pageCount} page={page} onChange={handleChange} />
                 </Stack>
             </div>
-        </Container>
+        </Grid>
     )
 }
