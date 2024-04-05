@@ -7,7 +7,11 @@ import {
 
 import './css/About.css';
 
-const aboutText = `lorem ipsum dolor sit amet `;
+const aboutText = `Doloribus dolorum fugit qui provident eos qui vitae. Fugit ea nulla odit velit dolorem quis at. Quae itaque non suscipit molestiae facilis ab tenetur. Magnam ex nulla accusamus animi est illo. Voluptatem molestiae sit totam atque voluptas debitis in temporibus.
+
+Ad nihil quod itaque eum sapiente. Voluptas nulla nesciunt velit repudiandae quis temporibus. Est ea exercitationem eos.
+
+Eligendi et voluptate et. Laborum nam ut necessitatibus voluptas unde quis est labore. Facere fugit laboriosam quisquam eaque. Fuga illo quibusdam magnam placeat.`;
 
 export default function About() {
 
@@ -16,7 +20,7 @@ export default function About() {
             <Grid className="height-inherit" container direction="column" item md={6} xs={12} justifyContent="center">
                 <Grid container direction="row" item md={8} xs={8} justifyContent="center">
                     <Grid container direction="column" item md={8} justifyContent="center">
-                        <Paper id="about-content-top" elevation={2}>
+                        <Paper id="about-content-top" elevation={2} square>
                             <Grid id="about-content" className="height-inherit" container direction="column" item xs={10}>
                                 <Stack>
                                     <Typography variant="subtitle2">
@@ -26,7 +30,7 @@ export default function About() {
                                         HOLLY REINSCH
                                     </Typography>
                                 </Stack>
-                                <Paper elevation={3}>
+                                <Paper elevation={0}>
                                     <Typography variant="body1">
                                         {aboutText}
                                     </Typography>

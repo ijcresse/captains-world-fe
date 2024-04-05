@@ -16,7 +16,7 @@ export default function HomeHero() {
     }
 
     const CardContent = (
-        <Paper id="content-top" elevation={2}>
+        <Paper id="content-top" elevation={2} square>
             <Grid id="home-content" className="height-inherit" container item xs={8} direction="column">
                 <Typography variant="h3">
                     Captain's World
