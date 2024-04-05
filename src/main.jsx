@@ -8,8 +8,6 @@ import {
 
 import './index.css'
 import ErrorPage from './components/ErrorPage'
-import About from './routes/About'
-import Contact from './routes/Contact'
 import Homepage from './routes/Homepage'
 import Reviews from './routes/Reviews'
 import Review from './routes/Review'
@@ -26,14 +24,6 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Homepage />
-      },
-      {
-        path: "about",
-        element: <About />
-      },
-      {
-        path: "contact",
-        element: <Contact />
       },
       {
         path: "reviews/",

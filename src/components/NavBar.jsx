@@ -37,14 +37,6 @@ function NavBar() {
         {
             'name': 'Reviews',
             'url': '/reviews'
-        },
-        {
-            'name': 'Contact',
-            'url': '/contact'
-        },
-        {
-            'name': 'About',
-            'url': '/about'
         }
     ]
 
