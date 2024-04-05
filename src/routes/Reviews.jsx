@@ -21,7 +21,7 @@ import './css/Reviews.css';
  * This component coordinates the two.
  */
 
-const PAGE_LIMIT = 12;
+const PAGE_LIMIT = 8;
 
 export default function Reviews() {
     const [page, setPage] = useState(1);
@@ -79,24 +79,29 @@ export default function Reviews() {
     }
 
     return(
-        <Grid container id="reviews-top">
-            {/* <div className="reviews-search-panel">
+        <Grid id="reviews-top" container>
+            <Grid id="reviews-search" container direction="column" item md={3}>
                 <SearchPanel />
-            </div> */}
-            <div id="reviews-container">
-                {reviews ? reviews.map(review => {
-                    return (
-                        <Link to={'/review/' + review['c_id']} key={review['c_id']}>
-                            <ReviewCard reviewInfo={review} key={review['c_id']} isAuthorized={false}/>
-                        </Link>
-                    )
-                }) : <></>}
-            </div>
-            <div id="reviews-footer">
-                <Stack spacing={2}>
-                    <Pagination count={pageCount} page={page} onChange={handleChange} />
-                </Stack>
-            </div>
+            </Grid>
+            <Grid container direction="column" item md={9}>
+                <Grid id="reviews-pages" container item direction="column" justifyContent="center">
+                    <Grid container item direction="row" justifyContent="center">
+                        <Pagination count={pageCount} page={page} onChange={handleChange} />
+                    </Grid>
+                </Grid>
+                <Grid container direction="row" item md={10} justifyContent="space-around" >
+                    {reviews ? reviews.map(review => {
+                        return (
+                            <Grid container item md={3} xs={6} justifyContent="center" alignItems="center" key={review['c_id']}>
+                                <Link to={'/review/' + review['c_id']} >
+                                    <ReviewCard reviewInfo={review} isAuthorized={false}/>
+                                </Link>
+                            </Grid>
+                        )
+                    }) : <></>}
+                </Grid>
+                
+            </Grid>
         </Grid>
     )
 }
