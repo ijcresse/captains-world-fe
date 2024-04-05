@@ -49,7 +49,6 @@ export default function Root() {
                         <div id="outlet-top">
                             <Outlet />
                         </div>
-                        <Logo transparency={true} />
                     </div>
                     <Notification />
                 </ToastProvider>

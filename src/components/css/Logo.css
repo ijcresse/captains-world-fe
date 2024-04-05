@@ -1,25 +1,24 @@
-.logo-top {
+#logo-container {
     position: absolute;
-    top: 5vh;
-    right: 0;
-    z-index: 0;
+    height: inherit;
+    margin: auto;
+    right: 5%;
+    opacity: 0.7;
+    z-index: 1;
 }
 
-.logo-img {
-    position: absolute;
-    top: 8vh;
-    right: 5vh;
-    width: 80vh;
-    min-height: 10%;
+#logo-img {
+    display: inline;
+    height: inherit;
+    width: auto;
+    max-width: 100%;
 }
 
-.logo-name {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 80vh;
-}
-
-.logo-transparent {
-    opacity: 0.5;
+@media only screen and (max-width: 640px) {
+    #logo-container {
+        position: absolute;
+        height: auto;
+        z-index: 1;
+        top: 20em;
+    }
 }

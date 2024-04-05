@@ -6,6 +6,8 @@ import {
     Button
 } from '@mui/material';
 import { useNavigate } from 'react-router';
+
+import Logo from './Logo';
 import './css/HomeHero.css';
 
 export default function HomeHero() {
@@ -17,7 +19,7 @@ export default function HomeHero() {
 
     const CardContent = (
         <Paper id="content-top" elevation={2} square>
-            <Grid id="home-content" className="height-inherit" container item xs={8} direction="column">
+            <Grid id="content-spacing" container item xs={12} direction="column" justifyContent="space-evenly">
                 <Typography variant="h3">
                     Captain's World
                 </Typography>
@@ -38,20 +40,18 @@ export default function HomeHero() {
 
     return(
         <Grid id="home-hero-root" container direction="row">
-            <Grid className="height-inherit" 
-                    container direction="column" item xs={12} md={9}
+            <Grid container direction="column" item md={8} xs={12} 
                     justifyContent="center">
-                <Grid className="height-inherit"
-                        container direction="row" item md={8} xs={10}
+                <Grid container direction="row" item md={8} xs={5}
                         justifyContent="center">
                     <Grid direction="column" container item md={8} >
                         { CardContent }
                     </Grid>
                 </Grid>
+                <Grid container item md={1} xs={5} />
             </Grid>
-            {/* <div id="home-hero-image-container">
-                img (z index needs to be below other areas)
-            </div> */}
+            <Logo />
+            <img id="bg-texture" src={'../../cypress.png'} />
         </Grid>
     )
 }

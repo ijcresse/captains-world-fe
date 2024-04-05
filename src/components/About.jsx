@@ -7,11 +7,13 @@ import {
 
 import './css/About.css';
 
-const aboutText = `Doloribus dolorum fugit qui provident eos qui vitae. Fugit ea nulla odit velit dolorem quis at. Quae itaque non suscipit molestiae facilis ab tenetur. Magnam ex nulla accusamus animi est illo. Voluptatem molestiae sit totam atque voluptas debitis in temporibus.
-
-Ad nihil quod itaque eum sapiente. Voluptas nulla nesciunt velit repudiandae quis temporibus. Est ea exercitationem eos.
-
-Eligendi et voluptate et. Laborum nam ut necessitatibus voluptas unde quis est labore. Facere fugit laboriosam quisquam eaque. Fuga illo quibusdam magnam placeat.`;
+const aboutText = `
+Doloribus dolorum fugit qui provident eos qui vitae. 
+Fugit ea nulla odit velit dolorem quis at. 
+Quae itaque non suscipit molestiae facilis ab tenetur. 
+Magnam ex nulla accusamus animi est illo. 
+Voluptatem molestiae sit totam atque voluptas debitis in temporibus. 
+Ad nihil quod itaque eum sapiente.`;
 
 export default function About() {
 

@@ -1,6 +1,6 @@
 import HomeHero from '../components/HomeHero'
 import About from '../components/About';
-// import Contact from '../components/Contact';
+import Contact from '../components/Contact';
 
 import './css/Homepage.css';
 /**
@@ -15,6 +15,7 @@ export default function Homepage() {
         <div id="home-root">
             <HomeHero />
             <About />
+            <Contact />
         </div>
     )
 }

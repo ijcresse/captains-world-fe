@@ -25,7 +25,6 @@
 }
 
 #outlet-top {
-    padding-top: 0.5em;
     padding-bottom: 0.5em;
     width: -moz-available;
     width: -webkit-fill-available;
