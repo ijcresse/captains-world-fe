@@ -20,16 +20,18 @@ export default function HomeHero() {
     const CardContent = (
         <Paper id="content-top" elevation={2} square>
             <Grid id="content-spacing" container item xs={12} direction="column" justifyContent="space-evenly">
-                <Typography variant="h3">
-                    Captain's World
-                </Typography>
                 <Stack>
-                    <Typography variant="subtitle2">
-                        Reviews and musings by Holly Reinsch,
+                    <Typography variant="h3">
+                        Captain's World
                     </Typography>
-                    <Typography variant="subtitle2">
-                        Sake sommelier
-                    </Typography>
+                    <Stack>
+                        <Typography variant="subtitle2">
+                            Reviews and musings by Holly Reinsch,
+                        </Typography>
+                        <Typography variant="subtitle2">
+                            Sake sommelier
+                        </Typography>
+                    </Stack>
                 </Stack>
                 <Button id="reviews-link" variant="contained" onClick={() => reviewsLink()}>
                     Reviews
