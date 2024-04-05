@@ -21,6 +21,7 @@ export default function About() {
         <Grid id="about-root" container direction="row">
             <Grid className="height-inherit" container direction="column" item md={6} xs={12} justifyContent="center">
                 <Grid container direction="row" item md={8} xs={8} justifyContent="center">
+                    <Grid container item md={2} />
                     <Grid container direction="column" item md={8} justifyContent="center">
                         <Paper id="about-content-top" elevation={2} square>
                             <Grid id="about-content" className="height-inherit" container direction="column" item xs={10}>
@@ -40,6 +41,7 @@ export default function About() {
                             </Grid>
                         </Paper>
                     </Grid>
+                    
                 </Grid>
             </Grid>
             <Grid container direction="column" item md={6} xs={12} justifyContent="center">
@@ -47,6 +49,7 @@ export default function About() {
                     <div id="image-cropper">
                         <img id="about-image" src={'../../contact.png'} className="rounded" />
                     </div>
+                    <Grid container item md={2} />
                 </Grid>
             </Grid>
         </Grid>

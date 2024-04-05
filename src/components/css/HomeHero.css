@@ -11,8 +11,7 @@
 }
 
 #content-spacing {
-    height: 80%;
-    margin-top: 20%;
+    height: inherit;
     margin-left: 10%;
 }
 
