@@ -86,10 +86,10 @@ export default function Reviews() {
                     </Typography>
                 </Grid>
                 <Grid container direction="row" >
-                    <Grid id="reviews-search" container direction="column" item md={3}>
+                    {/* <Grid id="reviews-search" container direction="column" item md={3}>
                         <SearchPanel />
-                    </Grid>
-                    <Grid container direction="column" item md={9}>
+                    </Grid> */}
+                    <Grid container direction="column" item md={12}>
                         <Grid id="reviews-pages" container item direction="column" justifyContent="center">
                             <Grid container item direction="row" justifyContent="center">
                                 <Pagination count={pageCount} page={page} onChange={handleChange} />

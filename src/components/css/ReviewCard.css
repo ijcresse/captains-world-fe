@@ -5,23 +5,14 @@
     height: 30vh;
     min-height: 250px;
     margin: 0.5em;
+    padding: 0.5em;
 }
 
 .review-card-image {
-    display: flex;
-    width: 20vh;
-    height: inherit;
-}
-
-.review-card-image {
-    display: flex;
-    margin: auto;
-    max-width: fit-content;
+    display: block;
+    margin: 0 auto;
     height: fit-content;
     width: 100%;
-    padding-top: 1em;
-    padding-left: 1em;
-    padding-right: 1em;
 }
 .review-card-text {
     height: inherit;
