@@ -79,10 +79,10 @@ export default function Reviews() {
     }
 
     return(
-        <Grid id="reviews-top" container>
-            <Grid id="reviews-search" container direction="column" item md={3}>
+        <Grid id="reviews-top" container justifyContent="center">
+            {/* <Grid id="reviews-search" container direction="column" item md={3}>
                 <SearchPanel />
-            </Grid>
+            </Grid> */}
             <Grid container direction="column" item md={9}>
                 <Grid id="reviews-pages" container item direction="column" justifyContent="center">
                     <Grid container item direction="row" justifyContent="center">

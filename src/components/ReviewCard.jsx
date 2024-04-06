@@ -1,13 +1,13 @@
 //takes info for a single review and returns a card containing that information (and link to the dedicated review)
 //used on the Reviews page.
-import { useContext } from 'react';
-
 import Card from '@mui/material/Card';
+import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
+import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import DeleteIcon from '@mui/icons-material/DeleteOutline';
 
-import { ServerContext } from '../context/ServerContext';
 import './css/ReviewCard.css'
 
 const ReviewCard = ({reviewInfo, isAuthorized}) => {
@@ -25,8 +25,8 @@ const ReviewCard = ({reviewInfo, isAuthorized}) => {
 
     const newCard = (
         <Card className="review-card-top">
-            <div className="review-card-image">
-                <AddCircleOutlineIcon />
+            <div className="review-card-image-container">
+                <AddCircleOutlineIcon className="review-card-image" />
             </div>
             <div className="review-card-text">
                 <div className="review-card-title">
@@ -43,23 +43,29 @@ const ReviewCard = ({reviewInfo, isAuthorized}) => {
             {/* {isAuthorized ? adminRow : <></>} */}
             {reviewInfo ? 
                 <Card className="review-card-top">
-                    <div className="review-card-image">
-                        {reviewInfo['c_image_url'] ? <img src={`${import.meta.env.VITE_IMAGES_DIR}/${reviewInfo['c_image_url']}`} /> : <>No Image</>}
-                    </div>
-                    <div className="review-card-text">
-                        <div className="review-card-title">
-                            <Typography variant="h5">
-                                {reviewInfo['c_name']}
-                            </Typography>
-                        </div>
-                    </div>
+                    <Grid className="height-inherit" container direction="column" justifyContent="space-between">
+                        <Grid className="review-card-image-container" container item xs={6} direction="row" >
+                            {reviewInfo['c_image_url'] ? 
+                                <img className="review-card-image" 
+                                        src={`${import.meta.env.VITE_IMAGES_DIR}/${reviewInfo['c_image_url']}`} /> : 
+                                <div className="review-card-image" >
+                                    No Image
+                                </div>
+                            }
+                        </Grid>
+                        <Grid className="review-card-text" container item xs={4} direction="column" justifyContent="flex-end">
+                            <div className="review-card-title">
+                                <Typography variant="h5">
+                                    {reviewInfo['c_name']}
+                                </Typography>
+                            </div>
+                        </Grid>
+                    </Grid>
                 </Card> 
                 :
                 newCard
             }
         </div>
-
-
     )
 }
 
