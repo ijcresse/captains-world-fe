@@ -78,7 +78,7 @@ export default function Review() {
                 </Grid>
                 <Grid container item xs={2} />
             </Grid>
-            <img id="bg-texture" src={'../../cypress.png'} />
+            <img id="review-bg-texture" src={'../../cypress.png'} />
         </Grid>
     )
 }

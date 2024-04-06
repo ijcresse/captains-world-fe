@@ -2,7 +2,8 @@
 //Child component of the Review route
 import {
     Grid,
-    Typography
+    Typography,
+    Divider
 } from '@mui/material';
 
 import './css/ViewReview.css';
@@ -28,7 +29,7 @@ export default function ViewReview({ reviewData, masterTags, imgData }) {
     }
 
     return (
-        <Grid id="view-review-top" container direction="row" justifyContent="center">
+        <Grid id="view-review-top" container direction="row" justifyContent="space-evenly">
             <Grid container direction="column" item md={5} justifyContent="center">
                 <Grid id="view-review-image-container" container direction="row" item xs={9} justifyContent="center">
                     <ImageDisplay />
@@ -36,20 +37,22 @@ export default function ViewReview({ reviewData, masterTags, imgData }) {
             </Grid>
             <Grid container direction="column" item md={5} justifyContent="center">
                 <Grid container direction="column" item xs={9} justifyContent="center">
-                    <Grid container item xs={4} direction="row" justifyContent="center">
+                    <Grid container item md={3} direction="row" justifyContent="center">
                         <Grid container item xs={10} direction="column" justifyContent="center">
                             <Typography className="view-review-text" variant="h3" >{reviewData['c_name']}</Typography>
                             <Typography className="view-review-text" variant="subtitle2" >{sakeTypesMap[reviewData['c_sake_type']]}</Typography>
                             <Typography className="view-review-text" variant="subtitle2" >{reviewData['c_date_enjoyed']}</Typography>
                         </Grid>
                     </Grid>
-                    <Grid container item xs={4} justifyContent="center">
+                    <Divider />
+                    <Grid container item md={3} justifyContent="center">
                         <Grid container item xs={10} direction="column" justifyContent="flex-start">
                             <Typography className="view-review-text" variant="body1" >{reviewData['c_description']}</Typography>
                         </Grid>
                     </Grid>
-                    <Grid container item xs={4} justifyContent="center">
-                        <Grid container item xs={10} direction="column" justifContent="flex-start">
+                    <Divider />
+                    <Grid container item md={3} justifyContent="center">
+                        <Grid container item xs={10} direction="column" justifyContent="flex-start">
                             <Tags tags={importTags(masterTags)} readOnly={true} />
                         </Grid>
                     </Grid>
