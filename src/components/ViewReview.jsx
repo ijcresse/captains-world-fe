@@ -1,7 +1,9 @@
 //Allows viewing a particular review. Coordinates with EditReview for logged in users.
 //Child component of the Review route
 import {
+    Grid,
     Typography,
+    Divider
 } from '@mui/material';
 
 import './css/ViewReview.css';
@@ -18,28 +20,44 @@ export default function ViewReview({ reviewData, masterTags, imgData }) {
     //prioritizes newly uploaded image, then current image, and blank if empty.
     const ImageDisplay = () => {
         if (imgData.length === 1) { //imgData should never be larger than 1
-            return (<img className="view-review-image" src={imgData[0].preview} />)
+            return (<img id="view-review-image" src={imgData[0].preview} />)
         } else if (reviewData['c_image_url']) {
-            return (<img className="view-review-image" src={`${import.meta.env.VITE_IMAGES_DIR}/${reviewData['c_image_url']}`} />)
+            return (<img id="view-review-image" src={`${import.meta.env.VITE_IMAGES_DIR}/${reviewData['c_image_url']}`} />)
         } else {
-            return (<div className="view-review-image">No Image</div>)
+            return (<div id="view-review-image">No Image</div>)
         }
     }
 
     return (
-        <div className="view-review-top">
-            <div className="view-review-image-container">
-                <ImageDisplay />
-            </div>
-            <div className="view-review-metadata">
-                <Typography className="view-review-name" variant="h4" sx={{margin: '1em'}}>{reviewData['c_name']}</Typography>
-                <Typography className="view-review-type" variant="subtitle1" sx={{margin: '1em'}}>{sakeTypesMap[reviewData['c_sake_type']]}</Typography>
-                <Typography className="view-review-enjoyed" variant="subtitle1" sx={{margin: '1em'}}>{reviewData['c_date_enjoyed']}</Typography>
-                <Typography className="view-review-desc" variant="body1" sx={{margin: '1em'}}>{reviewData['c_description']}</Typography>
-                <div className="view-review-taglist">
-                    <Tags tags={importTags(masterTags)} readOnly={true} />
-                </div>
-            </div>
-        </div>
+        <Grid id="view-review-top" container direction="row" justifyContent="space-evenly">
+            <Grid container direction="column" item md={5} justifyContent="center">
+                <Grid id="view-review-image-container" container direction="row" item xs={9} justifyContent="center">
+                    <ImageDisplay />
+                </Grid>
+            </Grid>
+            <Grid container direction="column" item md={5} justifyContent="center">
+                <Grid container direction="column" item xs={9} justifyContent="center">
+                    <Grid container item md={3} direction="row" justifyContent="center">
+                        <Grid container item xs={10} direction="column" justifyContent="center">
+                            <Typography className="view-review-text" variant="h3" >{reviewData['c_name']}</Typography>
+                            <Typography className="view-review-text" variant="subtitle2" >{sakeTypesMap[reviewData['c_sake_type']]}</Typography>
+                            <Typography className="view-review-text" variant="subtitle2" >{reviewData['c_date_enjoyed']}</Typography>
+                        </Grid>
+                    </Grid>
+                    <Divider />
+                    <Grid container item md={3} justifyContent="center">
+                        <Grid container item xs={10} direction="column" justifyContent="flex-start">
+                            <Typography className="view-review-text" variant="body1" >{reviewData['c_description']}</Typography>
+                        </Grid>
+                    </Grid>
+                    <Divider />
+                    <Grid container item md={3} justifyContent="center">
+                        <Grid container item xs={10} direction="column" justifyContent="flex-start">
+                            <Tags tags={importTags(masterTags)} readOnly={true} />
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
     )
 }

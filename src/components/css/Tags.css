@@ -1,6 +1,5 @@
 .ReactTags__tags {
     position: relative;
-    margin: 1em;
   }
   
   .ReactTags__clearAll {
@@ -44,7 +43,7 @@
     display: inline-block;
     padding: 0.5em;
     margin: 1px 5px;
-    border-radius: 30%;
+    border-radius: 40%;
     font-size: 1rem;
   }
   .ReactTags__selected a.ReactTags__remove {
