@@ -1,3 +1,20 @@
+#view-review-top {
+    height: 100%;
+}
+
+#view-review-image-container {
+    background-color: rgba(145, 5, 5, 0.12)
+}
+
+#view-review-image {
+    display: flex;
+    margin: auto;
+    max-width: fit-content;
+    height: fit-content;
+    width: 100%;
+    padding: 1em;
+}
+
 /* .view-review-top {
     display: flex;
     justify-content: space-between;
@@ -30,3 +47,4 @@
     flex-direction: column;
     width: 50%;
 } */
+

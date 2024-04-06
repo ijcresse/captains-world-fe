@@ -1,4 +1,6 @@
 #reviews-top {
+    position: relative;
+    z-index: 1;
     height: inherit;
     max-width: 100%;
 }
@@ -9,4 +11,12 @@
 
 #reviews-pages {
     min-height: 3em;
+}
+
+#bg-texture {
+    position: absolute;
+    z-index: 0;
+    height: inherit;
+    width: inherit;
+    opacity: 0.7;
 }

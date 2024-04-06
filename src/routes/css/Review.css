@@ -1,20 +1,19 @@
-/* .review-top {
-    display: flex;
-    flex-direction: column;
-    background-color: #e07d9b;
+#review-top {
+    height: inherit;
+    /* background-color: #e07d9b; */
 }
 
-.review-outlet {
-    height: 80vh;
+#review-paper {
+    width: inherit;
+    position: absolute;
+    z-index: 1;
 }
 
-.review-image img {
-    display: flex;
-    margin: auto;
-    padding-top: 1em;
-    padding-left: 1em;
-    padding-right: 1em;
-    width: 100%;
-    max-width: fit-content;
-    height: fit-content;
-} */
+#bg-texture {
+    position: absolute;
+    z-index: 0;
+    height: 95vh;
+    width: -moz-available;
+    width: -webkit-fill-available;
+    opacity: 0.7;
+}

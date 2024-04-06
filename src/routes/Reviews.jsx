@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import {
     Grid,
     Typography,
-    Stack,
     Pagination
 } from '@mui/material';
 
@@ -79,34 +78,37 @@ export default function Reviews() {
     }
 
     return(
-        <Grid id="reviews-top" container direction="column" justifyContent="space-evenly">
-            <Grid id="reviews-label" container direction="column" item md={2} justifyContent="center" alignItems="center" >
-                <Typography variant="h1">
-                    Sake Reviews
-                </Typography>
-            </Grid>
-            {/* <Grid id="reviews-search" container direction="column" item md={3}>
-                <SearchPanel />
-            </Grid> */}
-            <Grid container direction="column" item md={10}>
-                <Grid id="reviews-pages" container item direction="column" justifyContent="center">
-                    <Grid container item direction="row" justifyContent="center">
-                        <Pagination count={pageCount} page={page} onChange={handleChange} />
+        <div>
+            <Grid id="reviews-top" container direction="column" justifyContent="space-evenly">
+                <Grid id="reviews-label" container direction="column" item md={2} justifyContent="center" alignItems="center" >
+                    <Typography variant="h1">
+                        Sake Reviews
+                    </Typography>
+                </Grid>
+                {/* <Grid id="reviews-search" container direction="column" item md={3}>
+                    <SearchPanel />
+                </Grid> */}
+                <Grid container direction="column" item md={10}>
+                    <Grid id="reviews-pages" container item direction="column" justifyContent="center">
+                        <Grid container item direction="row" justifyContent="center">
+                            <Pagination count={pageCount} page={page} onChange={handleChange} />
+                        </Grid>
                     </Grid>
+                    <Grid container direction="row" item md={10} justifyContent="space-around" >
+                        {reviews ? reviews.map(review => {
+                            return (
+                                <Grid container item md={3} xs={6} justifyContent="center" alignItems="center" key={review['c_id']}>
+                                    <Link to={'/review/' + review['c_id']} >
+                                        <ReviewCard reviewInfo={review} isAuthorized={false}/>
+                                    </Link>
+                                </Grid>
+                            )
+                        }) : <></>}
+                    </Grid>
+                    
                 </Grid>
-                <Grid container direction="row" item md={10} justifyContent="space-around" >
-                    {reviews ? reviews.map(review => {
-                        return (
-                            <Grid container item md={3} xs={6} justifyContent="center" alignItems="center" key={review['c_id']}>
-                                <Link to={'/review/' + review['c_id']} >
-                                    <ReviewCard reviewInfo={review} isAuthorized={false}/>
-                                </Link>
-                            </Grid>
-                        )
-                    }) : <></>}
-                </Grid>
-                
             </Grid>
-        </Grid>
+            <img id="bg-texture" src={'../../cypress.png'} />
+        </div>
     )
 }

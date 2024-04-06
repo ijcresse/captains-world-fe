@@ -1,5 +1,8 @@
 import { WithContext as ReactTags } from 'react-tag-input';
-import { Typography } from '@mui/material';
+import { 
+    Typography,
+    Grid
+} from '@mui/material';
 import './css/Tags.css';
 
 const KeyCodes = {
@@ -48,11 +51,11 @@ export default function Tag({tags, setTags, readOnly}) {
     }
 
     return(
-        <>
+        <Grid container justifyContent="flex-start">
             {tags.length > 0 ? 
             <div>
-                <Typography variant="body1" sx={{ margin: '1em'}}>Tags:</Typography>
-                <ReactTags className="tags"
+                <Typography variant="subtitle2" >Tags:</Typography>
+                <ReactTags id="tags"
                     tags={tags}
                     handleDelete={handleDelete}
                     handleAddition={handleAddition}
@@ -63,7 +66,7 @@ export default function Tag({tags, setTags, readOnly}) {
                     readOnly={readOnly} />
             </div> 
             : <></>}
-        </>
+        </Grid>
     )
 }
 

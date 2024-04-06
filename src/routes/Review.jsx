@@ -3,16 +3,13 @@
 import { useContext, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
-    Switch,
-    FormGroup,
-    FormControlLabel,
+    Grid,
     Paper
  } from '@mui/material';
 
 import { ServerContext } from '../context/ServerContext';
 import { ToastContext } from '../context/ToastContext';
 import ViewReview from '../components/ViewReview';
-import EditReview from '../components/EditReview';
 import './css/Review.css';
 
 const baseReview = {
@@ -68,12 +65,20 @@ export default function Review() {
     }, [])
 
     return(
-        <Paper className="review-top">
-            <ViewReview 
-                reviewData={review}
-                masterTags={tags}
-                imgData={[]}
-            />
-        </Paper>
+        <Grid id="review-top" container justifyContent="space-evenly">
+            <Grid className="height-inherit" container direction="column" justifyContent="center" item xs={9}>
+                <Grid className="height-inherit" container direction="row" justifyContent="center" item xs={9}>
+                    <Paper id="review-paper" >
+                        <ViewReview 
+                            reviewData={review}
+                            masterTags={tags}
+                            imgData={[]}
+                            />
+                    </Paper>
+                </Grid>
+                <Grid container item xs={2} />
+            </Grid>
+            <img id="bg-texture" src={'../../cypress.png'} />
+        </Grid>
     )
 }
