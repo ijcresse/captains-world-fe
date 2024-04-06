@@ -1,5 +1,10 @@
 #reviews-top {
     height: inherit;
+    max-width: 100%;
+}
+
+#reviews-label {
+    background-color: rgba(145, 5, 5, 0.12)
 }
 
 #reviews-pages {

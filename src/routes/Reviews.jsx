@@ -79,11 +79,16 @@ export default function Reviews() {
     }
 
     return(
-        <Grid id="reviews-top" container justifyContent="center">
+        <Grid id="reviews-top" container direction="column" justifyContent="space-evenly">
+            <Grid id="reviews-label" container direction="column" item md={2} justifyContent="center" alignItems="center" >
+                <Typography variant="h1">
+                    Sake Reviews
+                </Typography>
+            </Grid>
             {/* <Grid id="reviews-search" container direction="column" item md={3}>
                 <SearchPanel />
             </Grid> */}
-            <Grid container direction="column" item md={9}>
+            <Grid container direction="column" item md={10}>
                 <Grid id="reviews-pages" container item direction="column" justifyContent="center">
                     <Grid container item direction="row" justifyContent="center">
                         <Pagination count={pageCount} page={page} onChange={handleChange} />

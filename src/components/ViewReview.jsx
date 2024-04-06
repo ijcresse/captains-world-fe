@@ -1,7 +1,8 @@
 //Allows viewing a particular review. Coordinates with EditReview for logged in users.
 //Child component of the Review route
 import {
-    Typography,
+    Grid,
+    Typography
 } from '@mui/material';
 
 import './css/ViewReview.css';
